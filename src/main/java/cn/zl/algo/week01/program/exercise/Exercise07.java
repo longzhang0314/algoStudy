@@ -1,7 +1,7 @@
 package cn.zl.algo.week01.program.exercise;
 
 /**
- * TODO 补充题目信息
+ * 58. 最后一个单词的长度（简单）
  */
 public class Exercise07 {
 

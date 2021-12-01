@@ -1,7 +1,7 @@
 package cn.zl.algo.week01.program.exercise;
 
 /**
- * TODO 补充题目信息
+ * 剑指 Offer 58 - II. 左旋转字符串（简单）
  */
 public class Exercise09 {
 
@@ -15,8 +15,14 @@ public class Exercise09 {
      */
     public String reverseLeftWords(String s, int n) {
         if (s == null || s.length() == 0 || n < 0 || n >= s.length()) return s;
-        // TODO
-
-        return null;
+        char[] res = new char[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            // 要放的索引位置，-1表示倒数第一个
+            int change = i - n;
+            // 转为正数索引
+            int idx = change >= 0 ? change : s.length() + change;
+            res[idx] = s.charAt(i);
+        }
+        return new String(res);
     }
 }

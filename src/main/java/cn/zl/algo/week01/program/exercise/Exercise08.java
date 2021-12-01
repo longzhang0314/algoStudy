@@ -1,7 +1,7 @@
 package cn.zl.algo.week01.program.exercise;
 
 /**
- * TODO 补充题目信息
+ * 剑指 Offer 05. 替换空格（简单）
  */
 public class Exercise08 {
 
