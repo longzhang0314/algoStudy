@@ -44,7 +44,7 @@ public class Example01 {
     public boolean isValid(String ipStr) {
         if (ipStr == null || ipStr.length() == 0) return false;
         String[] strs = ipStr.split("\\.");
-        if (strs == null || strs.length != 4) return false;
+        if (strs.length != 4) return false;
         for (String str : strs) {
             if (!isIpSingle(str)) return false;
         }

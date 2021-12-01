@@ -21,7 +21,7 @@ public class Test04 {
         StringBuilder sb = new StringBuilder();
         for (int i = ss.length - 1; i >= 0; i--) {
             ss[i] = removeSpace(ss[i]);
-            if (ss[i] == "") continue;
+            if ("".equals(ss[i])) continue;
             sb.append(ss[i]);
             sb.append(" ");
         }
