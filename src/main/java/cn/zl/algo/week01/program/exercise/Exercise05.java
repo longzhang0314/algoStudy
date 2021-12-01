@@ -5,7 +5,7 @@ package cn.zl.algo.week01.program.exercise;
  *
  * 只比较字符大小写，数字，其余直接忽略
  */
-public class Test05 {
+public class Exercise05 {
 
     public boolean isPalindrome(String s) {
         if (s == null || s.length() == 0) return true;

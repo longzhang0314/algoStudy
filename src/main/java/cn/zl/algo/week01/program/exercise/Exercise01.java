@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 1. 两数之和（简单）
  */
-public class Test01 {
+public class Exercise01 {
 
     /**
      * 最low的解法，O(N2)

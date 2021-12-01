@@ -5,7 +5,7 @@ package cn.zl.algo.week01.program.exercise;
  *
  * 必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。
  */
-public class Test03 {
+public class Exercise03 {
 
     public void reverseString(char[] s) {
         if (s == null || s.length == 0) return;

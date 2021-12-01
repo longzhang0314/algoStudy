@@ -5,7 +5,7 @@ package cn.zl.algo.week01.program.exercise;
  *
  * 例题2做过，复习一下
  */
-public class Test02 {
+public class Exercise02 {
 
     public String defangIPaddr(String address) {
         if (address == null || address.length() == 0) return address;

@@ -6,7 +6,7 @@ package cn.zl.algo.week01.program.exercise;
  * 输入: "the sky is blue"
  * 输出: "blue is sky the"
  */
-public class Test04 {
+public class Exercise04 {
 
 
     /**
