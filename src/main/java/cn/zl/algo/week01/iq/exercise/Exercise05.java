@@ -1,5 +1,8 @@
 package cn.zl.algo.week01.iq.exercise;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 面试题 16.15. 珠玑妙算 （简单）
  *
@@ -24,12 +27,31 @@ public class Exercise05 {
      * len(solution) = len(guess) = 4
      * solution和guess仅包含"R","G","B","Y"这4种字符
      *
-     * TODO
      * @param solution
      * @param guess
      * @return
      */
     public int[] masterMind(String solution, String guess) {
-        return null;
+        Map<Character, Integer> mapS = new HashMap<>();
+        Map<Character, Integer> mapG = new HashMap<>();
+        int realGuess = 0;
+        for (int i = 0; i < 4; i++) {
+            char a = solution.charAt(i);
+            char b = guess.charAt(i);
+            if (a == b) {
+                realGuess++;
+            }
+            mapS.put(a, mapS.getOrDefault(a, 0) + 1);
+            mapG.put(b, mapG.getOrDefault(b, 0) + 1);
+        }
+        int totalGuess = 0;
+        for (Map.Entry<Character, Integer> entryS : mapS.entrySet()) {
+            Character key = entryS.getKey();
+            Integer valueS = entryS.getValue();
+            Integer valueG = mapG.getOrDefault(key, 0);
+            totalGuess += Math.min(valueS, valueG);
+        }
+
+        return new int[]{realGuess, totalGuess - realGuess};
     }
 }
