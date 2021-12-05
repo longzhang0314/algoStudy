@@ -2,6 +2,8 @@ package cn.zl.algo.week01.program.exercise;
 
 /**
  * 9. 回文数（简单）
+ *
+ * 数字转数组方法； 不用long
  */
 public class Exercise06 {
 
@@ -23,5 +25,39 @@ public class Exercise06 {
             x /= 10;
         }
         return origin == target;
+    }
+
+    // 不用long，只用int
+    public boolean isPalindrome2(int x) {
+        if (x < 0) return false;
+        int origin = x;
+        int digit = 0;
+        int border = Integer.MAX_VALUE / 10;
+        while (x != 0) {
+            int change = x % 10;
+            if (digit > border) return false;
+            if (digit == border && change > 7) return false;
+            digit = digit * 10 + change;
+            x /= 10;
+        }
+        return digit == origin;
+    }
+
+    public boolean isPalindrome3(int x) {
+        if (x < 0) return false;
+        int[] arr = new int[10];
+        int n = 0;
+        while (x != 0) {
+            arr[n++] = x % 10;
+            x /= 10;
+        }
+        return valid(arr, n);
+    }
+
+    private boolean valid(int[] arr, int n) {
+        for (int i = 0; i < n / 2; i++) {
+            if (arr[i] != arr[n - i - 1]) return false;
+        }
+        return true;
     }
 }

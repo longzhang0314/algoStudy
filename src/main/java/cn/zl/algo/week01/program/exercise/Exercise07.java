@@ -2,6 +2,9 @@ package cn.zl.algo.week01.program.exercise;
 
 /**
  * 58. 最后一个单词的长度（简单）
+ *
+ * 【注意】可以不需要双指针，直接计数
+ * TODO【举一反三】倒数第k个单词长度？正数第k个单词长度？
  */
 public class Exercise07 {
 
@@ -32,6 +35,26 @@ public class Exercise07 {
             start--;
         }
         return end - start;
+    }
+
+
+    // 一次遍历，从后往前，但不需要双指针，只需要计数
+    public int lengthOfLastWord2(String s) {
+        if (s == null || s.length() == 0) return 0;
+        int end = s.length() - 1;
+        int cnt = 0;
+        while (end >= 0) {
+            if (s.charAt(end) == ' ') {
+                end--;
+                continue;
+            }
+            while (end >= 0 && s.charAt(end) != ' ') {
+                end--;
+                cnt++;
+            }
+            break;
+        }
+        return cnt;
     }
 
 }

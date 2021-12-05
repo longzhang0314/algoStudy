@@ -2,6 +2,8 @@ package cn.zl.algo.week01.program.exercise;
 
 /**
  * 剑指 Offer 67. 把字符串转换成整数（中等）经典atoi()，注意范围越界处理
+ *
+ * 【注意】经典题目，再练习
  */
 public class Exercise11 {
 
