@@ -7,6 +7,7 @@ package cn.zl.algo.week01.program.exercise;
  */
 public class Exercise11 {
 
+    // 方法1：内部都用正数计算，最后赋值符号位
     public int strToInt(String str) {
         if (str == null || str.length() == 0) return 0;
         // 去除前置空格
@@ -47,5 +48,42 @@ public class Exercise11 {
         return c >= '0' && c <= '9';
     }
 
+    // ==============================================方法分隔符=============================================================
+
+    // 方法2：数字构造的过程中直接赋值符号位(zheng哥解法)
+    public int strToInt2(String str) {
+        if (str == null || str.length() == 0) return 0;
+        int n = str.length();
+        int start = 0;
+        while (start < n && str.charAt(start) == ' ') {
+            start++;
+        }
+        if (start == n) return 0;
+        int sign = 1;
+        if (str.charAt(start) == '+') {
+            start++;
+        } else if (str.charAt(start) == '-') {
+            start++;
+            sign = -1;
+        }
+        int border = Integer.MAX_VALUE / 10;
+        int digit = 0;
+        while (start < n) {
+            char c = str.charAt(start);
+            if (!isDigit(c)) break;
+            int num = c - '0';
+            if (digit > border || digit < -border) {
+                if (sign == 1) return Integer.MAX_VALUE;
+                else return Integer.MIN_VALUE;
+            }
+            if (digit == border || digit == -border) {
+                if (sign == 1 && num > 7) return Integer.MAX_VALUE;
+                else if (sign == - 1 && num > 8) return Integer.MIN_VALUE;
+            }
+            digit = digit * 10 + sign * num;
+            start++;
+        }
+        return digit;
+    }
 
 }

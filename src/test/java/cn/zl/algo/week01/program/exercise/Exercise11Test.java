@@ -96,21 +96,30 @@ public class Exercise11Test {
 
     public static void main(String[] args) {
         Exercise11Test e = new Exercise11Test();
-        String s = "-21474836481";
+        String s = "4193abc";
         System.out.println(e.strToInt(s));
     }
 
 
+    // "  -42" 前导空格，符号位
+    // "4193abc" 后置非数字字符
+    // "abc987" 返回0
+    // "-9182838383838" 超过整数范围 返回Integer.MIN_VALUE
+    // "" 空字符串 返回0
+    // "  " 全文空格 返回0
     public int strToInt(String str) {
         char[] chars = str.toCharArray();
         int n = chars.length;
+
         // 处理空
         if (n == 0) return 0;
+
         // 处理前置空格
         int i = 0;
         while (i < n && chars[i] == ' ') {
             i++;
         }
+
         // 全为空格
         if (i == n) return 0;
 
@@ -130,21 +139,20 @@ public class Exercise11Test {
         int intAbsHigh = 214748364;
         int result = 0;
         while (i < n && chars[i] >= '0' && chars[i] <= '9') {
-            int d = chars[i] - '0';
+            int d = chars[i]-'0';
             // 判断再乘以10，加d之后，是否越界
-            if (result > intAbsHigh) {
-                if (sign == 1) return Integer.MAX_VALUE;
+            if (result < -intAbsHigh || result > intAbsHigh) {
+                if (sign==1) return Integer.MAX_VALUE;
                 else return Integer.MIN_VALUE;
             }
-            if (result == intAbsHigh) {
+            if (result == -intAbsHigh || result == intAbsHigh) {
                 if ((sign == 1) && (d > 7)) return Integer.MAX_VALUE;
                 if ((sign == -1) && (d > 8)) return Integer.MIN_VALUE;
             }
             // 正常逻辑
-            result = result * 10 + d;
+            result = result * 10 + sign*d;
             i++;
         }
-
-        return sign*result;
+        return result;
     }
 }
