@@ -3,7 +3,7 @@ package cn.zl.algo.week01.program.exercise;
 /**
  * 剑指 Offer 58 - I. 翻转单词顺序（简单）
  * <p>
- * TODO 【注意】原地解法 trim方法再写写
+ * 【注意】原地解法 trim方法再写写
  * 输入: "the sky is blue"
  * 输出: "blue is sky the"
  */
