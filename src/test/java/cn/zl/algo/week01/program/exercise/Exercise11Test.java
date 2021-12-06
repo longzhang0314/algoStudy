@@ -82,9 +82,7 @@ public class Exercise11Test {
             if (!isDigit(c)) break;
             if (digit > border) return ops ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             if (digit == border) {
-                if (ops && num > 7) return Integer.MAX_VALUE;
-                // 此处大于8会溢出，但是奇怪的是力扣上能ac
-                if (!ops && num >= 8) return Integer.MIN_VALUE;
+                if (num > 7) return ops ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             }
             digit = digit * 10 + num;
             start++;
