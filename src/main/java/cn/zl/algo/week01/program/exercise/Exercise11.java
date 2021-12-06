@@ -9,46 +9,42 @@ public class Exercise11 {
 
     public int strToInt(String str) {
         if (str == null || str.length() == 0) return 0;
-        int len = str.length();
         // 去除前置空格
+        int len = str.length();
         int start = 0;
-        while (start < len) {
-            if (str.charAt(start) == '+' || str.charAt(start) == '-' || Character.isDigit(str.charAt(start))) {
-                break;
-            }
-            // 前置是无效位直接返回0
-            if (str.charAt(start) != ' ') return 0;
+        while (start < len && str.charAt(start) == ' ') {
             start++;
         }
         if (start == len) return 0;
-
         // 判断正负
-        boolean positive = true;
+        boolean ops = true;
         if (str.charAt(start) == '+') {
             start++;
         } else if (str.charAt(start) == '-') {
             start++;
-            positive = false;
+            ops = false;
         }
-
-        // 数字赋值，注意越界判断
+        // digit转换
         int digit = 0;
+        int border = Integer.MAX_VALUE / 10;
         while (start < len) {
-            if (!Character.isDigit(str.charAt(start))) break;
-            int curNum = str.charAt(start) - '0';
-            if (digit > Integer.MAX_VALUE / 10) return positive ? Integer.MAX_VALUE : Integer.MIN_VALUE;
-            if (digit == Integer.MAX_VALUE / 10) {
-                if (positive && curNum > 7) {
-                    return Integer.MAX_VALUE;
-                } else if (!positive && curNum > 8) {
-                    return Integer.MIN_VALUE;
-                }
+            char c = str.charAt(start);
+            int num = c - '0';
+            if (!isDigit(c)) break;
+            if (digit > border) return ops ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            if (digit == border) {
+                if (ops && num > 7) return Integer.MAX_VALUE;
+                // 此处大于8会溢出，但是奇怪的是力扣上能ac
+                if (!ops && num >= 8) return Integer.MIN_VALUE;
             }
-            digit = digit * 10 + curNum;
+            digit = digit * 10 + num;
             start++;
         }
+        return ops ? digit : -digit;
+    }
 
-        return positive ? digit : -digit;
+    private boolean isDigit(char c) {
+        return c >= '0' && c <= '9';
     }
 
 

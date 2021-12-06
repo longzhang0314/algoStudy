@@ -4,7 +4,7 @@ package cn.zl.algo.week01.program.exercise;
  * 58. 最后一个单词的长度（简单）
  *
  * 【注意】可以不需要双指针，直接计数
- * TODO【举一反三】倒数第k个单词长度？正数第k个单词长度？
+ * 【举一反三】倒数第k个单词长度？正数第k个单词长度？
  */
 public class Exercise07 {
 
