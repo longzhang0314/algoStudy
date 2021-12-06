@@ -12,7 +12,7 @@ public class Exercise11Test {
      * @param str
      * @return
      */
-    public int strToInt(String str) {
+    public int strToInt1(String str) {
         if (str == null || str.length() == 0) return 0;
         // 去除前导空格
         int start = 0, len = str.length();
@@ -54,7 +54,6 @@ public class Exercise11Test {
     }
 
 
-
     // 方法一样
     public int strToInt2(String str) {
         if (str == null || str.length() == 0) return 0;
@@ -94,9 +93,58 @@ public class Exercise11Test {
         return c >= '0' && c <= '9';
     }
 
+
     public static void main(String[] args) {
         Exercise11Test e = new Exercise11Test();
         String s = "-21474836481";
-        System.out.println(e.strToInt2(s));
+        System.out.println(e.strToInt(s));
+    }
+
+
+    public int strToInt(String str) {
+        char[] chars = str.toCharArray();
+        int n = chars.length;
+        // 处理空
+        if (n == 0) return 0;
+        // 处理前置空格
+        int i = 0;
+        while (i < n && chars[i] == ' ') {
+            i++;
+        }
+        // 全为空格
+        if (i == n) return 0;
+
+        // 处理符号
+        int sign = 1;
+        char c = chars[i];
+        if (c == '-') {
+            sign = -1;
+            i++;
+        } else if (c == '+') {
+            sign = 1;
+            i++;
+        }
+
+        // 真正处理数字
+        // 整数范围-2147483648~2147483647
+        int intAbsHigh = 214748364;
+        int result = 0;
+        while (i < n && chars[i] >= '0' && chars[i] <= '9') {
+            int d = chars[i] - '0';
+            // 判断再乘以10，加d之后，是否越界
+            if (result > intAbsHigh) {
+                if (sign == 1) return Integer.MAX_VALUE;
+                else return Integer.MIN_VALUE;
+            }
+            if (result == intAbsHigh) {
+                if ((sign == 1) && (d > 7)) return Integer.MAX_VALUE;
+                if ((sign == -1) && (d > 8)) return Integer.MIN_VALUE;
+            }
+            // 正常逻辑
+            result = result * 10 + d;
+            i++;
+        }
+
+        return sign*result;
     }
 }
