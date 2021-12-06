@@ -2,9 +2,9 @@ package cn.zl.algo.week01.iq.exercise;
 
 /**
  * 55. 跳跃游戏 （中等）
- * TODO 容易忘记思路，以及证明解法可行
+ * 【注意】容易忘记思路，以及证明解法可行
  */
-public class Erercise07 {
+public class Exercise07 {
 
     /**
      * 给定一个非负整数数组 nums ，你最初位于数组的 第一个下标 。

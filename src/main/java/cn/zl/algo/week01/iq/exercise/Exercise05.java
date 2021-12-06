@@ -54,4 +54,27 @@ public class Exercise05 {
 
         return new int[]{realGuess, totalGuess - realGuess};
     }
+
+    public int[] masterMind2(String solution, String guess) {
+        int n = solution.length();
+        int real = 0, total = 0;
+        Map<Character, Integer> map = new HashMap<>();
+        map.put('R', 0);
+        map.put('Y', 1);
+        map.put('G', 2);
+        map.put('B', 3);
+        int[] sArr = new int[4];
+        int[] gArr = new int[4];
+        for (int i = 0; i < n; i++) {
+            if (solution.charAt(i) == guess.charAt(i)) {
+                real++;
+            }
+            sArr[map.get(solution.charAt(i))]++;
+            gArr[map.get(guess.charAt(i))]++;
+        }
+        for (int i = 0; i < 4; i++) {
+            total += Math.min(sArr[i], gArr[i]);
+        }
+        return new int[]{real, total - real};
+    }
 }

@@ -2,7 +2,7 @@ package cn.zl.algo.week01.iq.exercise;
 
 /**
  * 面试题 16.04. 井字游戏（中等）
- * TODO 代码较多，再默写一遍
+ * TODO 代码较多，再默写一遍; 解法不够优雅，等待讲解
  */
 public class Exercise06 {
 

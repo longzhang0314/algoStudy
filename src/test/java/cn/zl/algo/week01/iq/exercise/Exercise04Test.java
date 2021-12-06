@@ -38,4 +38,34 @@ public class Exercise04Test {
         }
         return true;
     }
+
+
+    public boolean oneEditAway2(String first, String second) {
+        if (first == null) return second == null;
+        if (second == null) return false;
+        int m = first.length(), n = second.length();
+        if (Math.abs(m - n) > 1) return false;
+        int i = 0, j = 0;
+        boolean op = false;
+        while (i < m && j < n) {
+            char a = first.charAt(i);
+            char b = second.charAt(j);
+            if (a == b) {
+                i++;
+                j++;
+                continue;
+            }
+            if (op) return false;
+            op = true;
+            if (m == n) {
+                i++;
+                j++;
+            } else if (m < n) {
+                j++;
+            } else {
+                i++;
+            }
+        }
+        return true;
+    }
 }
