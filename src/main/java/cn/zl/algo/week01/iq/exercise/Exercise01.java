@@ -4,6 +4,9 @@ package cn.zl.algo.week01.iq.exercise;
  * 面试题 01.08. 零矩阵（简单）
  *
  * 编写一种算法，若M × N矩阵中某个元素为0，则将其所在的行与列清零。
+ *
+ * TODO 多种解法和复杂度分析
+ * 暴力法，记录：数组（去重），哈希，特殊哈希
  */
 public class Exercise01 {
 

@@ -16,6 +16,7 @@ import java.util.Map;
  *
  * 给定一种颜色组合solution和一个猜测guess，编写一个方法，返回猜中和伪猜中的次数answer，其中answer[0]为猜中的次数，answer[1]为伪猜中的次数。
  *
+ * TODO 其他方法，无需哈希
  */
 public class Exercise05 {
 

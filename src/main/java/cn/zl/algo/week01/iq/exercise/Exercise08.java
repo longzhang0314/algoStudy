@@ -2,6 +2,10 @@ package cn.zl.algo.week01.iq.exercise;
 
 /**
  * 48. 旋转图像 （中等）经典
+ *
+ * TODO 3种方法：tmp数组，翻转（两种），标准原地旋转
+ * 【注意】原地旋转解法；
+ * TODO 拓展题型：m * n
  */
 public class Exercise08 {
 
@@ -23,6 +27,7 @@ public class Exercise08 {
      *
      * @param matrix
      */
+    // 方法1：翻转解法
     public void rotate(int[][] matrix) {
         if (matrix == null || matrix.length <= 1) return;
         int n = matrix.length;

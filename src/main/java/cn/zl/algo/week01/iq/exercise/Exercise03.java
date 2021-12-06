@@ -1,7 +1,5 @@
 package cn.zl.algo.week01.iq.exercise;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 面试题 16.11. 跳水板（简单）
@@ -30,16 +28,15 @@ public class Exercise03 {
      */
     public int[] divingBoard(int shorter, int longer, int k) {
         if (k <= 0) return new int[]{};
-        List<Integer> list = new ArrayList<>();
+        if (shorter == longer) {
+            return new int[]{k * shorter};
+        }
+        int[] res = new int[k + 1];
         for (int i = 0; i <= k; i++) {
             // i长，k-i短；
             int len = longer * i + shorter * (k - i);
-            if (i > 0 && list.get(list.size() - 1) == len) continue;
-            list.add(len);
-        }
-        int[] res = new int[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            res[i] = list.get(i);
+            // 不可能重复
+            res[i] = len;
         }
         return res;
     }

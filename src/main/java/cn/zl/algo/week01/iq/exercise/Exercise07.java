@@ -3,6 +3,8 @@ package cn.zl.algo.week01.iq.exercise;
 /**
  * 55. 跳跃游戏 （中等）
  * 【注意】容易忘记思路，以及证明解法可行
+ *
+ * TODO 原始思路解法，可达数组
  */
 public class Exercise07 {
 
