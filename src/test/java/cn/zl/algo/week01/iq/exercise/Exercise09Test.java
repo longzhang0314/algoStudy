@@ -37,4 +37,5 @@ public class Exercise09Test {
     private boolean canRun(int[][] matrix, boolean[][] visited, int i, int j) {
         return i >= 0 && j >= 0 && i < matrix.length && j < matrix[0].length && !visited[i][j];
     }
+
 }

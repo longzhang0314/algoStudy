@@ -29,9 +29,8 @@ public class Exercise01Test {
     }
 
 
-
     public void setZeroes1(int[][] matrix) {
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return;
+        if (matrix == null) return;
         int m = matrix.length, n = matrix[0].length;
         boolean[] row = new boolean[m];
         boolean[] col = new boolean[n];
@@ -43,7 +42,6 @@ public class Exercise01Test {
                 }
             }
         }
-
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (row[i] || col[j]) {

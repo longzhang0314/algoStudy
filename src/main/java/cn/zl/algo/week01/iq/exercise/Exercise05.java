@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * 给定一种颜色组合solution和一个猜测guess，编写一个方法，返回猜中和伪猜中的次数answer，其中answer[0]为猜中的次数，answer[1]为伪猜中的次数。
  *
- * TODO 其他方法，无需哈希
+ * 【注意】其他方法，无需哈希
  */
 public class Exercise05 {
 
@@ -32,6 +32,7 @@ public class Exercise05 {
      * @param guess
      * @return
      */
+    // 哈希表 + 遍历
     public int[] masterMind(String solution, String guess) {
         Map<Character, Integer> mapS = new HashMap<>();
         Map<Character, Integer> mapG = new HashMap<>();
@@ -56,6 +57,7 @@ public class Exercise05 {
         return new int[]{realGuess, totalGuess - realGuess};
     }
 
+    // 特殊哈希数组
     public int[] masterMind2(String solution, String guess) {
         int n = solution.length();
         int real = 0, total = 0;
@@ -77,5 +79,36 @@ public class Exercise05 {
             total += Math.min(sArr[i], gArr[i]);
         }
         return new int[]{real, total - real};
+    }
+
+
+    // 直观的猜测过程, 无需哈希
+    public int[] masterMind3(String solution, String guess) {
+        int n = solution.length();
+        boolean[] used = new boolean[n];
+        int real = 0;
+        int fake = 0;
+        // 找到真猜中
+        for (int i = 0; i < n; i++) {
+            if (solution.charAt(i) == guess.charAt(i)) {
+                real++;
+                used[i] = true;
+            }
+        }
+        // 伪猜中判断
+        for (int i = 0; i < n; i++) {
+            char g = guess.charAt(i);
+            char s = solution.charAt(i);
+            // 当前真实猜中，直接跳过
+            if (s == g) continue;
+            for (int j = 0; j < n; j++) {
+                if (j != i && !used[j] && g == solution.charAt(j)) {
+                    fake++;
+                    used[j] = true;
+                    break;
+                }
+            }
+        }
+        return new int[]{real, fake};
     }
 }
