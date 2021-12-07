@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 54. 螺旋矩阵（中等）经典
  *
- * TODO 一圈一圈打，向内收缩
+ * 【注意】一圈一圈打，向内收缩
  */
 public class Exercise09 {
 
@@ -17,6 +17,7 @@ public class Exercise09 {
      * @param matrix
      * @return
      */
+    // 方法1：使用顺序的方向向量，遇到边界或者访问过的就变向
     public List<Integer> spiralOrder(int[][] matrix) {
         if (matrix == null) return new ArrayList<>();
         int m = matrix.length, n = matrix[0].length;
@@ -45,8 +46,44 @@ public class Exercise09 {
         }
         return res;
     }
-
     private boolean canRun(int m, int n, boolean[][] visited, int i, int j) {
         return i >= 0 && j >= 0 && i < m && j < n && !visited[i][j];
     }
+
+    // 1 2 3
+    // 4 5 6
+    // 7 8 9
+    // 方法2：先放最外层，然后逐渐缩小矩形；每一层上下左右放4行
+    public List<Integer> spiralOrder2(int[][] matrix) {
+        if (matrix == null) return new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
+        int m = matrix.length, n = matrix[0].length;
+        int top = 0, bottle = m - 1, left = 0, right = n - 1;
+        while (top <= bottle && left <= right) {
+            // 顶
+            for (int i = left; i <= right; i++) {
+                res.add(matrix[top][i]);
+            }
+            // 右 top + 1 -> 顶部已经处理过
+            for (int i = top + 1; i <= bottle; i++) {
+                res.add(matrix[i][right]);
+            }
+            if (top != bottle) {
+                for (int i = right - 1; i >= left; i--) {
+                    res.add(matrix[bottle][i]);
+                }
+            }
+            if (left != right) {
+                for (int i = bottle - 1; i > top; i--) {
+                    res.add(matrix[i][left]);
+                }
+            }
+            top++;
+            bottle--;
+            left++;
+            right--;
+        }
+        return res;
+    }
+
 }

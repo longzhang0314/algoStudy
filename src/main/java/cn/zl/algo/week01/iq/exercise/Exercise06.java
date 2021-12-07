@@ -2,9 +2,79 @@ package cn.zl.algo.week01.iq.exercise;
 
 /**
  * 面试题 16.04. 井字游戏（中等）
- * TODO 代码较多，再默写一遍; 解法不够优雅，看题解解法
+ * 【注意】代码较多，尽量写得优雅
  */
 public class Exercise06 {
+
+    public String tictactoe1(String[] board) {
+        int n = board.length;
+        if (n == 1) return board[0] == " " ? "Pending" : board[0];
+        char[][] chs = new char[n][n];
+        for (int i = 0; i < n; i++) {
+            chs[i] = board[i].toCharArray();
+        }
+        boolean hasWin = false;
+        // 同一行是否有赢家
+        for (int i = 0; i < n; i++) {
+            if (chs[i][0] == ' ') continue;
+            hasWin = true;
+            for (int j = 1; j < n; j++) {
+                if (chs[i][j] != chs[i][0]) {
+                    hasWin = false;
+                    break;
+                }
+            }
+            if (hasWin) return chs[i][0] + "";
+        }
+        // 同一列是否有赢家
+        for (int j = 0; j < n; j++) {
+            if (chs[0][j] == ' ') continue;
+            hasWin = true;
+            for (int i = 1; i < n; i++) {
+                if (chs[i][j] != chs[0][j]) {
+                    hasWin = false;
+                    break;
+                }
+            }
+            if (hasWin) return chs[0][j] + "";
+        }
+        // 左上 -> 右下对角线是否有赢家
+        hasWin = true;
+        for (int i = 0; i < n; i++) {
+            if (chs[i][i] == ' ') {
+                hasWin = false;
+                break;
+            }
+            if (chs[i][i] != chs[0][0]) {
+                hasWin = false;
+                break;
+            }
+        }
+        if (hasWin) return chs[0][0] + "";
+        // 右上 -> 左下对角线是否有赢家
+        hasWin = true;
+        for (int i = 0; i < n; i++) {
+            if (chs[i][n - 1 - i] == ' ') {
+                hasWin = false;
+                break;
+            }
+            if (chs[i][n - 1 - i] != chs[0][n - 1]) {
+                hasWin = false;
+                break;
+            }
+        }
+        if (hasWin) return chs[0][n - 1] + "";
+        // 是否有空格
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (chs[i][j] == ' ') return "Pending";
+            }
+        }
+        return "Draw";
+    }
+
+
+
 
     public String tictactoe(String[] board) {
         int n = board.length;
