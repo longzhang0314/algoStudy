@@ -39,6 +39,31 @@ public class Delete {
     }
 
     /**
+     * 删除给定节点
+     *
+     * @param head
+     * @param p
+     * @return
+     */
+    public Node deleteThisNode1(Node head, Node p) {
+        if (head == null || p == null) return null;
+        if (head == p) {
+            head = head.next;
+        } else {
+            Node prev = head;
+            while (prev.next != null) {
+                if (prev.next == p) {
+                    prev.next = prev.next.next;
+                    break;
+                } else {
+                    prev = prev.next;
+                }
+            }
+        }
+        return head;
+    }
+
+    /**
      * 删除给定节点优化 - 虚拟头结点
      * （wangzheng版本）
      * @param head
@@ -77,6 +102,7 @@ public class Delete {
                 q.next = q.next.next;
                 break;
             }
+            q = q.next;
         }
         return newHead.next;
     }
