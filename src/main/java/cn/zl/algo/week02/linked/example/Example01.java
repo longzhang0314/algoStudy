@@ -1,8 +1,10 @@
 package cn.zl.algo.week02.linked.example;
 
 /**
- * @author liusha
- * @date 2021/12/8
+ * TODO 手撕linkedlist
  */
 public class Example01 {
+
+
+
 }
