@@ -1,4 +1,4 @@
-package cn.zl.algo.week02.linked;
+package cn.zl.algo.week02.linked.exercise;
 
 import cn.zl.algo.week02.linked.common.ListNode;
 
