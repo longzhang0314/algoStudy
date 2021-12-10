@@ -27,4 +27,10 @@ public class Exercise03 {
         }
         return head;
     }
+
+    // TODO 新开一个链表头节点，不重复的挪移过来
+    public ListNode deleteDuplicates2(ListNode head) {
+        return null;
+    }
+
 }
