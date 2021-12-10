@@ -28,9 +28,24 @@ public class Exercise03 {
         return head;
     }
 
-    // TODO 新开一个链表头节点，不重复的挪移过来
+    // 方法2：新开一个链表头节点，不重复的挪移过来
     public ListNode deleteDuplicates2(ListNode head) {
-        return null;
+        if (head == null) return null;
+        ListNode newHead = new ListNode(0);
+        ListNode tail = newHead;
+        ListNode p = head;
+        int cnt = 0;
+        while (p != null) {
+            ListNode tmp = p.next;
+            if (cnt == 0 || tail.val != p.val) {
+                tail.next = p;
+                tail = tail.next;
+                cnt++;
+            }
+            p = tmp;
+        }
+        tail.next = null;
+        return newHead.next;
     }
 
 }
