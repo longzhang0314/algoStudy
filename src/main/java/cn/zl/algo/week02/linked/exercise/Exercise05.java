@@ -31,8 +31,7 @@ public class Exercise05 {
             int sum = val1 + val2 + carry;
             int cur = sum % 10;
             carry = sum / 10;
-            ListNode curNode = new ListNode(cur);
-            p.next = curNode;
+            p.next = new ListNode(cur);
             p = p.next;
             l1 = l1.next;
             l2 = l2.next;
@@ -43,14 +42,12 @@ public class Exercise05 {
             int sum = l1.val + carry;
             int cur = sum % 10;
             carry = sum / 10;
-            ListNode curNode = new ListNode(cur);
-            p.next = curNode;
+            p.next = new ListNode(cur);
             p = p.next;
             l1 = l1.next;
         }
         if (carry != 0) {
-            ListNode curNode = new ListNode(carry);
-            p.next = curNode;
+            p.next = new ListNode(carry);
         }
         return newHead.next;
     }
