@@ -51,4 +51,25 @@ public class Exercise05 {
         }
         return newHead.next;
     }
+
+
+    // 一次while，和方法1大致相同
+    public ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+        ListNode newHead = new ListNode(0);
+        ListNode p = newHead;
+        int carry = 0;
+        while (l1 != null || l2 != null) {
+            int sum = carry + (l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val);
+            carry = sum / 10;
+            sum %= 10;
+            p.next = new ListNode(sum);
+            p = p.next;
+            if (l1 != null) l1 = l1.next;
+            if (l2 != null) l2 = l2.next;
+        }
+        if (carry != 0) {
+            p.next = new ListNode(carry);
+        }
+        return newHead.next;
+    }
 }
