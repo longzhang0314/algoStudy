@@ -5,7 +5,6 @@ import cn.zl.algo.week02.linked.common.ListNode;
 /**
  * 19.删除链表的倒数第n个节点（中等）
  *
- * TODO 不熟练，先走几步的问题，再练
  * @author liusha
  * @date 2021/12/9
  */
@@ -21,21 +20,24 @@ public class Exercise11 {
      * @return
      */
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        if (head == null || n <= 0) return null;
-        // 先找到倒数第n + 1步
-        // 快指针先走n步,到第n+1个的位置
+        if (head == null || n <= 0) return head;
+        // 找到倒数第n个节点的前置节点
+        // 快慢指针，快指针先走到第n步，但要注意是否走到结尾
         ListNode fast = head;
-        // n步
-        for (int i = 0; i < n; i++) {
-            if (fast == null) return head;
+        for (int i = 0; i < n - 1 && fast != null; i++) {
             fast = fast.next;
         }
-        if (fast == null) return head.next;
-        // 慢指针开始走,快指针走到null为止
+        // 走到null了说明n太大不合理
+        if (fast == null) return head;
+        if (fast.next == null) { // 删除头节点
+            head = head.next;
+            return head;
+        }
         ListNode slow = head;
-        while (fast.next != null) {
-            slow = slow.next;
+        // 由于要找到倒数第n的前置节点，所以fast最终只能停留在倒数第2个位置
+        while (fast.next != null && fast.next.next != null) {
             fast = fast.next;
+            slow = slow.next;
         }
         slow.next = slow.next.next;
         return head;

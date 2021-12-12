@@ -44,17 +44,17 @@ public class Exercise06 {
         return newHead.next;
     }
 
-    // 方法4：头插法，不需要虚拟头结点
+    // 多练几遍 方法4：头插法，不需要虚拟头结点
     public ListNode reverseList4(ListNode head) {
-        if (head == null || head.next == null) return head;
-        ListNode p = head.next;
-        head.next = null;
+        if (head == null) return head;
+        ListNode newHead = null;
+        ListNode p = head;
         while (p != null) {
             ListNode tmp = p.next;
-            p.next = head;
-            head = p;
+            p.next = newHead;
+            newHead = p;
             p = tmp;
         }
-        return head;
+        return newHead;
     }
 }

@@ -16,16 +16,14 @@ public class Exercise10 {
     // 快慢指针
     public ListNode getKthFromEnd(ListNode head, int k) {
         if (head == null || k <= 0) return head;
-        // 假设k不大于链表长度，是有效数字
-        // 快指针先走到正数第k个位置，然后快慢指针同时走，快指针走到最后一位时慢指针的位置
+        // k可能大于链表长度，当大于时，返回头结点
         ListNode fast = head;
-        for (int i = 0; i < k - 1; i++) {
+        for (int i = 0; i < k - 1 && fast != null; i++) {
             fast = fast.next;
-            // k超过了链表长度
-            if (fast == null) return head;
         }
+        if (fast == null) return head;
         ListNode slow = head;
-        while (fast != null && fast.next != null) {
+        while (fast.next != null) {
             fast = fast.next;
             slow = slow.next;
         }
