@@ -20,4 +20,16 @@ public class Exercise13 {
         }
         return false;
     }
+
+    // fast初始化为fast.next
+    public boolean hasCycle2(ListNode head) {
+        if (head == null) return false;
+        ListNode slow = head, fast = head.next;
+        while (fast != null && fast.next != null && slow != fast) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        if (slow == fast) return true;
+        return false;
+    }
 }

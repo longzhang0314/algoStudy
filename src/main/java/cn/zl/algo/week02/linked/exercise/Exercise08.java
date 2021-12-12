@@ -45,4 +45,27 @@ public class Exercise08 {
         return oddHead.next;
     }
 
+    // 方法2：不用cnt计数，简化代码
+    public ListNode oddEvenList2(ListNode head) {
+        if (head == null) return null;
+        ListNode oddHead = new ListNode(0);
+        ListNode oddTail = oddHead;
+        ListNode evenHead = new ListNode(0);
+        ListNode evenTail = evenHead;
+        ListNode p = head;
+        while (p != null) {
+            oddTail.next = p;
+            oddTail = oddTail.next;
+            p = p.next;
+            if (p != null) {
+                evenTail.next = p;
+                evenTail = evenTail.next;
+                p = p.next;
+            }
+        }
+        evenTail.next = null;
+        oddTail.next = evenHead.next;
+        return oddHead.next;
+    }
+
 }

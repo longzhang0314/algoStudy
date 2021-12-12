@@ -19,6 +19,7 @@ public class Exercise11 {
      * @param n
      * @return
      */
+    // 最优
     public ListNode removeNthFromEnd(ListNode head, int n) {
         if (head == null || n <= 0) return head;
         // 找到倒数第n个节点的前置节点
@@ -40,6 +41,29 @@ public class Exercise11 {
             slow = slow.next;
         }
         slow.next = slow.next.next;
+        return head;
+    }
+
+    // 方法2 pre指针
+    public ListNode removeNthFromEnd2(ListNode head, int n) {
+        if (head == null || n <= 0) return head;
+        ListNode fast = head;
+        int cnt = 0;
+        while (fast != null) {
+            cnt++;
+            if (cnt == n) break;;
+            fast = fast.next;
+        }
+        if (fast == null) return head;
+        if (fast.next == null) return head.next;
+        ListNode slow = fast;
+        ListNode pre = null;
+        while (fast.next != null) {
+            fast = fast.next;
+            pre = slow;
+            slow = slow.next;
+        }
+        pre.next = pre.next.next;
         return head;
     }
 
