@@ -45,10 +45,4 @@ public class Exercise08 {
         return oddHead.next;
     }
 
-    // 方法2：原链表上倒腾
-    public ListNode oddEvenList2(ListNode head) {
-        // TODO 原链表上倒腾
-        return null;
-    }
-
 }
