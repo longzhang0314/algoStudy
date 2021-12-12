@@ -12,7 +12,7 @@ import cn.zl.algo.week02.linked.common.ListNode;
  *
  * 你可以设计一个只使用常数额外空间的算法来解决此问题吗？
  * 你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
- * TODO 习题课后再练习
+ * TODO 第三周再练习
  */
 public class Exercise09 {
 

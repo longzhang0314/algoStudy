@@ -32,26 +32,26 @@ public class Addition01 {
         return head;
     }
 
-    // 方法2：非递归
-    public ListNode swapPairs2(ListNode head) {
+    // 方法2：非递归+虚拟头节点
+    public ListNode swapPairs3(ListNode head) {
         if (head == null || head.next == null) return head;
+        ListNode newHead = new ListNode(0);
+        ListNode tail = newHead;
         ListNode p1 = head;
-        ListNode newHead = head.next;
-        ListNode prev = null;
-        while (p1 != null && p1.next != null) {
+        while (p1 != null) {
             ListNode p2 = p1.next;
-            ListNode next = p2.next;
-
+            if (p2 == null) {
+                tail.next = p1;
+                break;
+            }
+            ListNode tmp = p2.next;
             p2.next = p1;
             p1.next = null;
-            if (prev != null) {
-                prev.next = p2;
-            }
-
-            prev = p1;
-            p1 = next;
+            tail.next = p2;
+            tail = p1;
+            p1 = tmp;
         }
-        return newHead;
+        return newHead.next;
     }
 
     public static void main(String[] args) {
@@ -60,7 +60,7 @@ public class Addition01 {
         head.next.next = new ListNode(3);
         head.next.next.next = new ListNode(4);
         Addition01 a = new Addition01();
-        ListNode l = a.swapPairs2(head);
+        ListNode l = a.swapPairs3(head);
         while (l != null) {
             System.out.println(l);
             l = l.next;
