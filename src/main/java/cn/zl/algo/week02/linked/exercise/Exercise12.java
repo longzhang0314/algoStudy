@@ -3,7 +3,7 @@ package cn.zl.algo.week02.linked.exercise;
 import cn.zl.algo.week02.linked.common.ListNode;
 
 /**
- * 160.相交l链表（简单）
+ * 160.相交链表（简单）
  * @author liusha
  * @date 2021/12/9
  */

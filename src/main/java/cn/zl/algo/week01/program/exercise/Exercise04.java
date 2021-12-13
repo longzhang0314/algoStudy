@@ -6,6 +6,8 @@ package cn.zl.algo.week01.program.exercise;
  * 【注意】原地解法 trim方法再写写
  * 输入: "the sky is blue"
  * 输出: "blue is sky the"
+ *
+ * TODO 第三周再练习
  */
 public class Exercise04 {
 
@@ -169,6 +171,58 @@ public class Exercise04 {
 
     private void reverse(char[] chs, int i, int j) {
         j = j - 1;
+        while (i < j) {
+            char tmp = chs[i];
+            chs[i] = chs[j];
+            chs[j] = tmp;
+            i++;
+            j--;
+        }
+    }
+
+    // ======================================== 方法4练习（标准写法）==========================================================
+
+    public String reverseWords5(String s) {
+        if (s == null || s.length() == 0) return s;
+        char[] chs = s.toCharArray();
+        int n = trim5(chs);
+        reverse5(chs, 0, n - 1);
+        int i = 0;
+        while (i < n) {
+            int j = i + 1;
+            while (j < n && chs[j] != ' ') {
+                j++;
+            }
+            reverse5(chs, i, j - 1);
+            i = j + 1;
+        }
+        return new String(chs, 0, n);
+    }
+    private int trim5(char[] chs) {
+        int n = chs.length;
+        int i = 0;
+        while (i < n && chs[i] == ' ') {
+            i++;
+        }
+        int j = n - 1;
+        while (j > i && chs[j] == ' ') {
+            j--;
+        }
+        int k = 0;
+        while (i <= j) {
+            if (chs[i] == ' ') {
+                // 多个空格只要最后一个，并且不能是数组结尾的空格
+                if (i + 1 <= j && chs[i + 1] != ' ') {
+                    chs[k++] = chs[i];
+                }
+            } else {
+                chs[k++] = chs[i];
+            }
+            i++;
+        }
+        return k;
+    }
+    private void reverse5(char[] chs, int i , int j) {
         while (i < j) {
             char tmp = chs[i];
             chs[i] = chs[j];
