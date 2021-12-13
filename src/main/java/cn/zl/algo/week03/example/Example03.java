@@ -26,8 +26,13 @@ public class Example03 {
                 continue;
             }
             if (!isOps(c)) {
-                num.push(c - '0');
-                i++;
+                // 注意数字要往下遍历
+                int digit = 0;
+                while (i < n && !isOps(s.charAt(i))) {
+                    digit = digit * 10 + (s.charAt(i) - '0');
+                    i++;
+                }
+                num.push(digit);
                 continue;
             }
             while (!ops.isEmpty() && !prior(c, ops.peek())) {
