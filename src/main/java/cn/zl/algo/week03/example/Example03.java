@@ -45,7 +45,7 @@ public class Example03 {
             ops.push(c);
             i++;
         }
-        if (!ops.isEmpty()) {
+        while (!ops.isEmpty()) {
             int k2 = num.pop();
             int k1 = num.pop();
             int res = calc(k1, k2, ops.pop());

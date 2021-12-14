@@ -1,9 +1,10 @@
 package cn.zl.algo.week03.exercise;
 
+import java.util.Stack;
+
 /**
  * 剑指 Offer 09. 用两个栈实现队列（简单）（已讲）
  *
- * TODO 隔天再做
  * @author: longzhang
  * @date: 2021/12/13
  */
@@ -13,16 +14,27 @@ public class Exercise01 {
 
 class CQueue {
 
-    public CQueue() {
+    private Stack<Integer> stack;
+    private Stack<Integer> tmp;
 
+    public CQueue() {
+        this.stack  = new Stack<>();
+        this.tmp = new Stack<>();
     }
 
     public void appendTail(int value) {
-
+        while (!stack.isEmpty()) {
+            tmp.push(stack.pop());
+        }
+        stack.push(value);
+        while (!tmp.isEmpty()) {
+            stack.push(tmp.pop());
+        }
     }
 
     public int deleteHead() {
-        return -1;
+        if (stack.isEmpty()) return -1;
+        return stack.pop();
     }
 }
 
