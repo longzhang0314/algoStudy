@@ -1,7 +1,8 @@
 package cn.zl.algo.week03.exercise;
 
+import java.util.Stack;
+
 /**
- * TODO 还没做
  * 剑指 Offer 31. 栈的压入、弹出序列
  *
  * 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。
@@ -24,7 +25,41 @@ package cn.zl.algo.week03.exercise;
  */
 public class Exercise10 {
 
+    // 写法简洁好理解
+    public boolean validateStackSequences2(int[] pushed, int[] popped) {
+        if (pushed == null) return true;
+        Stack<Integer> stack = new Stack<>();
+        // 每push一个，尝试去pop
+        int j = 0;
+        int n = popped.length;
+        for (int p : pushed) {
+            stack.push(p);
+            while (j < n && !stack.isEmpty() && stack.peek() == popped[j]) {
+                stack.pop();
+                j++;
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    // 写法较复杂
     public boolean validateStackSequences(int[] pushed, int[] popped) {
-        return false;
+        if (pushed == null) return true;
+        Stack<Integer> stack = new Stack<>();
+        int i = 0, j = 0;
+        int n = pushed.length;
+        while (i < n || j < n) {
+            while (j < n && !stack.isEmpty() && stack.peek() == popped[j]) {
+                stack.pop();
+                j++;
+            }
+            if (i < n) {
+                stack.push(pushed[i]);
+                i++;
+            } else {
+                break;
+            }
+        }
+        return stack.isEmpty();
     }
 }
