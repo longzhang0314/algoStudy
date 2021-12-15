@@ -12,15 +12,6 @@ import java.util.Deque;
  * 输出: [3,3,5,5,6,7]
  * 解释:
  *
- *   滑动窗口的位置                最大值
- * ---------------               -----
- * [1  3  -1] -3  5  3  6  7       3
- *  1 [3  -1  -3] 5  3  6  7       3
- *  1  3 [-1  -3  5] 3  6  7       5
- *  1  3  -1 [-3  5  3] 6  7       5
- *  1  3  -1  -3 [5  3  6] 7       6
- *  1  3  -1  -3  5 [3  6  7]      7
- *
  * 提示：
  * 你可以假设 k 总是有效的，在输入数组不为空的情况下，1 ≤ k ≤ 输入数组的大小。
  *
@@ -29,24 +20,26 @@ import java.util.Deque;
  */
 public class Exercise16 {
 
-    // TODO 没做
+    // 双端队列
     public int[] maxSlidingWindow(int[] nums, int k) {
-        // TODO 思路，需要修改
         if (nums == null || nums.length == 0) return new int[0];
         int n = nums.length;
         int[] res = new int[n - k + 1];
         Deque<Integer> deque = new ArrayDeque<>(k + 1);
         int idx = 0;
         for (int i = 0; i < n; i++) {
+            // 从尾部放入
             while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
                 deque.pollLast();
             }
             deque.offerLast(i);
-            if (i - deque.peekFirst() >= 0) {
+            // i = 3 时，0出队   i - peek >= k
+            while (i - deque.peekFirst() >= k) {
                 deque.pollFirst();
             }
-            if ((i + 1) % k == 0) {
-                res[idx++] = deque.peekFirst();
+            // 第k - 1个数开始就要算滑动窗口最大值了
+            if (i >= k - 1) {
+                res[idx++] = nums[deque.peekFirst()];
             }
         }
         return res;
