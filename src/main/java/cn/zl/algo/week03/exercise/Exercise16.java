@@ -1,5 +1,8 @@
 package cn.zl.algo.week03.exercise;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * 剑指 Offer 59 - I. 滑动窗口的最大值（困难）单调队列
  *
@@ -28,6 +31,24 @@ public class Exercise16 {
 
     // TODO 没做
     public int[] maxSlidingWindow(int[] nums, int k) {
-        return null;
+        // TODO 思路，需要修改
+        if (nums == null || nums.length == 0) return new int[0];
+        int n = nums.length;
+        int[] res = new int[n - k + 1];
+        Deque<Integer> deque = new ArrayDeque<>(k + 1);
+        int idx = 0;
+        for (int i = 0; i < n; i++) {
+            while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
+                deque.pollLast();
+            }
+            deque.offerLast(i);
+            if (i - deque.peekFirst() >= 0) {
+                deque.pollFirst();
+            }
+            if ((i + 1) % k == 0) {
+                res[idx++] = deque.peekFirst();
+            }
+        }
+        return res;
     }
 }
