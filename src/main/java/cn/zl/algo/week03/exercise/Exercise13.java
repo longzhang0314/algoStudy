@@ -12,6 +12,7 @@ import java.util.Stack;
  * 输出：10
  * 解释：最大的矩形为图中红色区域，面积为 10
  *
+ * TODO 周末再练
  * @author: longzhang
  * @date: 2021/12/14
  */
@@ -19,26 +20,25 @@ public class Exercise13 {
 
     // 方法1：暴力法，找左右两次第一个小于当前柱子的值，得到以当前柱子高度形成的矩形
     public int largestRectangleArea(int[] heights) {
-        if (heights == null) return 0;
+        if (heights == null || heights.length == 0) return 0;
         int n = heights.length;
         int res = 0;
         for (int i = 0; i < n; i++) {
-            int leftIdx = i - 1, rightIdx = i + 1;
+            // 找到i左右两侧第一个小于i的索引
+            int left = -1, right = n;
             for (int j = i - 1; j >= 0; j--) {
                 if (heights[j] < heights[i]) {
-                    leftIdx = j;
+                    left = j;
                     break;
                 }
-                if (j == 0) leftIdx = -1;
             }
             for (int k = i + 1; k < n; k++) {
                 if (heights[k] < heights[i]) {
-                    rightIdx = k;
+                    right = k;
                     break;
                 }
-                if (k == n - 1) rightIdx = n;
             }
-            res = Math.max(res, heights[i] * (rightIdx - leftIdx - 1));
+            res = Math.max(res, heights[i] * (right - left - 1));
         }
         return res;
     }
