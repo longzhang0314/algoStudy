@@ -1,6 +1,7 @@
 package cn.zl.algo.week03.find;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * 71.简化路径（中等）
@@ -50,6 +51,7 @@ public class Find01 {
         String s6 = "/hello../world";
         String s7 = "/home/foo/.ssh/../.ssh2/authorized_keys/";
         String s8 = "/.././em/jl///../.././../E/";
+        String s9 = "/home/";
 //        System.out.println(f.simplifyPath(s1));
 //        System.out.println(f.simplifyPath(s2));
 //        System.out.println(f.simplifyPath(s3));
@@ -57,122 +59,74 @@ public class Find01 {
 //        System.out.println(f.simplifyPath(s5));
 //        System.out.println(f.simplifyPath(s6));
 //        System.out.println(f.simplifyPath(s7));
-        System.out.println(f.simplifyPath(s8));
+//        System.out.println(f.simplifyPath(s8));
+        System.out.println(f.simplifyPath(s9));
     }
 
 
-    // TODO 解法错误，看题解
+    // 方法1：【利用split函数】先拆分，放入栈中，遇到..就回退
     public String simplifyPath(String path) {
         if (path == null || path.length() == 0) return path;
-        int n = path.length();
-        int i = 0;
-        Stack<Character> stack = new Stack<>();
+        String[] strs = path.split("/");
+        Deque<String> deque = new ArrayDeque<>();
+        for (String str : strs) {
+            if ("".equals(str) || ".".equals(str)) {
+                continue;
+            }
+            if ("..".equals(str)) {
+                if (!deque.isEmpty()) deque.pop();
+            } else {
+                deque.push(str);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("/");
+        while (!deque.isEmpty()) {
+            // 因为栈是firstInFirstOut
+            sb.append(deque.pollLast());
+            sb.append("/");
+        }
+        return sb.length() == 1 ? sb.toString() : sb.substring(0, sb.length() - 1);
+    }
+
+
+    // 方法2：不需要用到split函数，从头遍历，遇到 / 跳走，否则记录到下一个 / 之前的元素，. 忽略， .. 回退，其余放入栈中
+    public String simplifyPath2(String path) {
+        if (path == null || path.length() == 0) return path;
+        Deque<String> deque = new ArrayDeque<>();
+        int i = 0, n = path.length();
         while (i < n) {
             char c = path.charAt(i);
-            if (isNormal(c) || c == '.') {
-                stack.push(c);
+            if (c == '/') {
                 i++;
                 continue;
             }
-            // 入栈
-            // /    遇到普通字符，入栈；遇到栈顶 / ，消掉；  遇到 . ，消掉.和/；遇到两个 ., 消掉两个 . ，并消掉前一个 / 和前一个元素
-            // .    直接入栈
-            if (c == '/') {
-                if (stack.isEmpty() || isNormal(stack.peek())) {
+            StringBuilder builder = new StringBuilder();
+            while (i < n && path.charAt(i) != '/') {
+                builder.append(path.charAt(i));
+                i++;
+            }
+            if (builder.length() > 0) {
+                String tmp = builder.toString();
+                if ("..".equals(tmp)) {
+                    if (!deque.isEmpty()) {
+                        deque.pollFirst();
+                    }
+                } else if (!".".equals(tmp)) {
+                    deque.offerFirst(tmp);
                     i++;
-                    stack.push(c);
-                    continue;
-                }
-                if (stack.peek() == '/') {
-                    i++;
-                    continue;
-                }
-                if (stack.peek() == '.') {
-                    // 连续有几个.
-                    int point = 0;
-                    while (!stack.isEmpty() && stack.peek() == '.') {
-                        point++;
-                        stack.pop();
-                    }
-                    if (point > 2 || (!stack.isEmpty() && isNormal(stack.peek()))) {
-                        for (int j = 0; j < point; j++) {
-                            stack.push('.');
-                        }
-                        stack.push(c);
-                        i++;
-                        continue;
-                    }
-                    if (point == 1) {
-                        i++;
-                        continue;
-                    }
-                    while (!stack.isEmpty()) {
-                        stack.pop();
-                    }
-                    while (!stack.isEmpty() && (isNormal(stack.peek()) || stack.peek() == '.')) {
-                        stack.pop();
-                    }
-                    i++;
-                    continue;
                 }
             }
         }
-
-        // 处理末尾是.的情况
-        int point = 0;
-        while (!stack.isEmpty() && stack.peek() == '.') {
-            stack.pop();
-            point++;
+        StringBuilder sb = new StringBuilder();
+        while (!deque.isEmpty()) {
+            sb.append("/");
+            sb.append(deque.pollLast());
         }
-
-        if (point == 1) {
-            if (!stack.isEmpty() && stack.peek() == '/') {
-                stack.pop();
-            }
-        } else if (point == 2) {
-            if (!stack.isEmpty() && stack.peek() == '/') {
-                stack.pop();
-                while (!stack.isEmpty() && stack.peek() != '/') {
-                    stack.pop();
-                }
-                if (!stack.isEmpty() && stack.peek() == '/') {
-                    stack.pop();
-                }
-            }
-        } else if (point > 2) {
-            for (int j = 0; j < point; j++) {
-                stack.push('.');
-            }
-        }
-
-        // 出栈
-        // 栈顶如果是 / ,直接丢弃
-        // 栈最后一个元素不是 /，补一个 /
-        if (!stack.isEmpty() && stack.peek() == '/') {
-            stack.pop();
-        }
-
-        // 处理空的情况
-        if (stack.isEmpty()) {
-            return "/";
-        }
-
-        char[] res = new char[stack.size() + 1];
-        int idx = res.length - 1;
-        while (!stack.isEmpty()) {
-            res[idx--] = stack.pop();
-        }
-        if (res[1] != '/') {
-            res[0] = '/';
-            return new String(res);
-        } else {
-            return new String(res, 1, res.length - 1);
-        }
+        return sb.length() == 0 ? "/" : sb.toString();
     }
 
-    private boolean isNormal(char c) {
-        return (c >= '0' && c <='9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
-    }
+
 
 
 }
