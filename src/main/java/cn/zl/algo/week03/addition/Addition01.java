@@ -33,42 +33,62 @@ package cn.zl.algo.week03.addition;
 public class Addition01 {
 }
 
-// TODO 待做
 class MyCircularDeque {
 
-    public MyCircularDeque(int k) {
+    private int n;
+    private int[] arr;
+    private int head;
+    private int tail;
 
+    public MyCircularDeque(int k) {
+        this.n = k + 1;
+        this.head = 0;
+        this.tail = 0;
+        this.arr = new int[n];
     }
 
     public boolean insertFront(int value) {
-
+        if (isFull()) return false;
+        head = (head - 1 + n) % n;
+        arr[head] = value;
+        return true;
     }
 
     public boolean insertLast(int value) {
-
+        if (isFull()) return false;
+        arr[tail] = value;
+        tail = (tail + 1) % n;
+        return true;
     }
 
     public boolean deleteFront() {
-
+        if (isEmpty()) return false;
+        head = (head + 1) % n;
+        return true;
     }
 
     public boolean deleteLast() {
-
+        if (isEmpty()) return false;
+        tail = (tail - 1 + n) % n;
+        return true;
     }
 
     public int getFront() {
-
+        if (isEmpty()) return -1;
+        return arr[head];
     }
 
     public int getRear() {
-
+        if (isEmpty()) return -1;
+        int idx = (tail - 1 + n) % n;
+        return arr[idx];
     }
 
     public boolean isEmpty() {
-
+        return head == tail;
     }
 
     public boolean isFull() {
-
+        return (tail + 1) % n == head;
     }
 }
