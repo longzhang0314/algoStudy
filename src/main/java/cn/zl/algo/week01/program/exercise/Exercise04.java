@@ -7,7 +7,6 @@ package cn.zl.algo.week01.program.exercise;
  * 输入: "the sky is blue"
  * 输出: "blue is sky the"
  *
- * TODO 第三周再练习
  */
 public class Exercise04 {
 

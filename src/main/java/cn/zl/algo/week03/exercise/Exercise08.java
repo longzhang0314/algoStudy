@@ -16,7 +16,15 @@ public class Exercise08 {
     public static void main(String[] args) {
         Exercise08 e = new Exercise08();
         String s = "5+2*(3+1+4+2*3)+6/2";
+        String s1 = "1+1";
+        String s2 = "6-4/2";
+        String s3 = "2*(5+5*2)/3+(6/2+8)"; // 21
+        String s4 = "(2+6*3+5-(3*14/7+2)*5)+3"; // -12
         System.out.println(e.calculate(s));
+        System.out.println(e.calculate(s1));
+        System.out.println(e.calculate(s2));
+        System.out.println(e.calculate(s3));
+        System.out.println(e.calculate(s4));
     }
 
     // 5+2*(3+1+4+2*3)+6/2 = 16

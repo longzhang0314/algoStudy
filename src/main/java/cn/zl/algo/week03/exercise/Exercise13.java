@@ -12,7 +12,6 @@ import java.util.Stack;
  * 输出：10
  * 解释：最大的矩形为图中红色区域，面积为 10
  *
- * TODO 周末再练
  * @author: longzhang
  * @date: 2021/12/14
  */

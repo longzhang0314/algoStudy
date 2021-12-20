@@ -14,7 +14,7 @@ import java.util.Deque;
  *
  * 提示：
  * 你可以假设 k 总是有效的，在输入数组不为空的情况下，1 ≤ k ≤ 输入数组的大小。
- * TODO 周末再练
+ *
  * @author: longzhang
  * @date: 2021/12/15
  */

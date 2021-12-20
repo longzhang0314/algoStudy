@@ -4,7 +4,6 @@ package cn.zl.algo.week01.iq.exercise;
  * 面试题 16.04. 井字游戏（中等）
  * 【注意】代码较多，尽量写得优雅
  *
- * TODO 第三周再练一遍
  */
 public class Exercise06 {
 
