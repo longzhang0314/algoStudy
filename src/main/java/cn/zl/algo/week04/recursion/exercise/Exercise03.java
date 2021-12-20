@@ -1,4 +1,4 @@
-package cn.zl.algo.week04.exercise;
+package cn.zl.algo.week04.recursion.exercise;
 
 /**
  * 面试题 08.01 三步问题（简单）

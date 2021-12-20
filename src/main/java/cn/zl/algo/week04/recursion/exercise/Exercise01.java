@@ -1,4 +1,4 @@
-package cn.zl.algo.week04.exercise;
+package cn.zl.algo.week04.recursion.exercise;
 
 /**
  * 剑指Offer 10-1 斐波那契数列（简单）

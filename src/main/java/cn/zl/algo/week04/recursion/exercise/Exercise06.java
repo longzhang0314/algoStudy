@@ -1,4 +1,4 @@
-package cn.zl.algo.week04.exercise;
+package cn.zl.algo.week04.recursion.exercise;
 
 import cn.zl.algo.week02.linked.common.ListNode;
 

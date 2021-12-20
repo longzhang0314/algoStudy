@@ -1,4 +1,4 @@
-package cn.zl.algo.week04.exercise;
+package cn.zl.algo.week04.recursion.exercise;
 
 /**
  * 面试题 08.05 递归乘法（中等）
