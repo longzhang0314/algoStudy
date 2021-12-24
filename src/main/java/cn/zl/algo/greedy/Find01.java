@@ -1,4 +1,4 @@
-package cn.zl.algo;
+package cn.zl.algo.greedy;
 
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -6,16 +6,16 @@ import java.util.TreeMap;
 
 /**
  * @author: longzhang
- * @date: 2021/12/19
+ * @date: 2021/12/24
  */
-public class Test {
+public class Find01 {
 
     public static void main(String[] args) {
-        Test t = new Test();
+        Find01 t = new Find01();
 //        int[] apples = {1,2,3,5,2};
 //        int[] apples = {3,0,0,0,0,2};
 //        int[] apples = {20000};
-         //31
+        //31
 //        int[] days = {3,2,1,4,2};
 //        int[] days = {3,0,0,0,0,2};
 //        int[] days = {20000};
@@ -69,6 +69,7 @@ public class Test {
         return ans;
     }
 
+    // 方法2：贪心+treeMap
     public int eatenApples2(int[] apples, int[] days) {
         int n = apples.length;
         int ans = 0;
@@ -108,5 +109,46 @@ public class Test {
         return ans;
     }
 
-
+    // 方法3：贪心+堆 优化
+    public int eatenApples3(int[] apples, int[] days) {
+        int n = apples.length;
+        // 0 数量  1 保质期
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            while (!heap.isEmpty() && heap.peek()[1] <= i) {
+                heap.poll();
+            }
+            int day = i + days[i];
+            if (apples[i] != 0) {
+                heap.offer(new int[]{apples[i], day});
+            }
+            if (!heap.isEmpty()) {
+                int[] top = heap.peek();
+                ans++;
+                if (top[0] <= 1) {
+                    heap.poll();
+                } else {
+                    heap.peek()[0]--;
+                }
+            }
+        }
+        if (heap.isEmpty()) return ans;
+        int i = n;
+        while (!heap.isEmpty()) {
+            if (heap.peek()[1] <= i) {
+                heap.poll();
+                continue;
+            }
+            int[] top = heap.poll();
+            // while (!heap.isEmpty() && heap.peek()[1] == top[1]) {
+            //     int[] poll = heap.poll();
+            //     top[0] += poll[0];
+            // }
+            int eat = Math.min(top[1] - i, top[0]);
+            ans += eat;
+            i += eat;
+        }
+        return ans;
+    }
 }
