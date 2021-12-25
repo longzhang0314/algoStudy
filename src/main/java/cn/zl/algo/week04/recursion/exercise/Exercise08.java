@@ -15,14 +15,25 @@ public class Exercise08 {
 
     public static void main(String[] args) {
         Exercise08 e = new Exercise08();
-        System.out.println(e.multiply(10, 1));
-        System.out.println(e.multiply(2, 5));
-        System.out.println(e.multiply(5, 2));
+        System.out.println(e.multiply2(10, 1));
+        System.out.println(e.multiply2(2, 5));
+        System.out.println(e.multiply2(5, 2));
     }
 
     public int multiply(int A, int B) {
         if (A < B) return multiply(B, A);
         if (B == 1) return A;
         return (B & 1) == 1 ? A + multiply(A + A, B >> 1) : multiply(A + A, B >> 1);
+    }
+
+    public int multiply2(int A, int B) {
+        if (A < B) return multiply2(B, A);
+        if (B == 1) return A;
+        int sub = multiply2(A, B >> 1);
+        if (B % 2 == 0) {
+            return sub + sub;
+        } else {
+            return A + sub + sub;
+        }
     }
 }

@@ -31,11 +31,22 @@ public class Exercise07 {
     public double myPow(double x, int n) {
         if (x == 0) return 0;
         if (n == 0) return 1;
-        if (n == 1) return x;
-        if (n == Integer.MIN_VALUE) return 1 / myPow(x, Integer.MAX_VALUE) / x;
-        if (n < 0) return 1 / myPow(x, -n);
+        if (n < 0) return 1 / (myPow(x, -(n + 1)) * x);
 
         return (n & 1) == 1 ? x * myPow(x * x, n / 2) : myPow(x * x, n / 2);
+    }
+
+    // 递归第二种 x^n = x^n/2 * x^n/2
+    public double myPow3(double x, int n) {
+        if (x == 0) return 0;
+        if (n == 0) return 1;
+        if (n < 0) return 1 / (myPow3(x, -(n + 1))) * x;
+        double sub = myPow3(x, n / 2);
+        if (n % 2 == 0) {
+            return sub * sub;
+        } else {
+            return sub * sub * x;
+        }
     }
 
 
@@ -43,8 +54,7 @@ public class Exercise07 {
     public double myPow2(double x, int n) {
         if (x == 0) return 0;
         if (n == 0) return 1;
-        if (n == Integer.MIN_VALUE) return 1 / myPow2(x, Integer.MAX_VALUE) / x;
-        if (n < 0) return 1 / myPow2(x, -n);
+        if (n < 0) return 1 / (myPow(x, -(n + 1)) * x);
         double multi = 1;
         while (n != 1) {
             if ((n & 1) == 1) {
