@@ -1,4 +1,4 @@
-package cn.zl.algo.binary;
+package cn.zl.algo.week05.binary.find;
 
 import java.util.PriorityQueue;
 
