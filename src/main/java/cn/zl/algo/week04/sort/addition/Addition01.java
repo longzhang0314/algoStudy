@@ -1,8 +1,6 @@
 package cn.zl.algo.week04.sort.addition;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * 1122. 数组的相对排序（简单）
@@ -21,7 +19,6 @@ import java.util.Set;
  * arr2中的元素arr2[i]各不相同
  * arr2 中的每个元素arr2[i]都出现在arr1中
  * <p>
- * TODO
  *
  * @author: longzhang
  * @date: 2021/12/21
