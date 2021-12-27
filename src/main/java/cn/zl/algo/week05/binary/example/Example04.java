@@ -2,6 +2,9 @@ package cn.zl.algo.week05.binary.example;
 
 /**
  * 例题4： 循环有序数组中查找最小元素（没有重复数据）
+ *
+ * TODO 有重复数据
+ *
  * 153. 寻找旋转排序数组中的最小值
  *
  * 7、9、10、11、15、1、2、3、4、5、6
@@ -25,7 +28,7 @@ public class Example04 {
         int left = 0, right = n - 1;
         while (left <= right) {
             int mid = left + (right - left) / 2;
-            if (nums[mid] < nums[(mid - 1 + n) % n] && nums[mid] < nums[(mid + 1) % n]) {
+            if (nums[mid] <= nums[(mid - 1 + n) % n] && nums[mid] <= nums[(mid + 1) % n]) {
                 return mid;
             } else if (nums[mid] > nums[right]) { // 右边循环有序，在右边找
                 left = mid + 1;
