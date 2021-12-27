@@ -16,7 +16,6 @@ import cn.zl.algo.week02.linked.common.ListNode;
  * 每次迭代中，插入排序只从输入数据中移除一个待排序的元素，找到它在序列中适当的位置，并将其插入。
  * 重复直到所有输入数据插入完为止。
  *
- * TODO 重做练一遍
  * @author liusha
  * @date 2021/12/21
  */
