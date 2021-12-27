@@ -5,6 +5,10 @@ import cn.zl.algo.week02.linked.common.ListNode;
 /**
  * 148. 排序链表（中等）
  *
+ * TODO 链表上的冒泡、插入、选择排序都写一下
+ *
+ * TODO 重做，非递归解法，因为要空间O(1)
+ *
  * @author liusha
  * @date 2021/12/21
  */
@@ -59,7 +63,7 @@ public class Exercise09 {
     }
 
 
-    // 方法2：快排 O(N^2) 不建议
+    // 方法2：插入排序 O(N^2) 不建议
     public ListNode sortList2(ListNode head) {
         if (head == null) return null;
         ListNode newHead = new ListNode(0);

@@ -19,7 +19,7 @@ public class Exercise11 {
         int left = 0, right = num / 2 + 1;
         while (left <= right) {
             int mid = left + (right - left) / 2;
-            long mid22 = mid * mid;
+            long mid22 = (long) mid * mid;
             if (mid22 == num) {
                 return true;
             } else if (mid22 < num) {
