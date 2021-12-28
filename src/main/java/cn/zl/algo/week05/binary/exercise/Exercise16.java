@@ -25,6 +25,8 @@ package cn.zl.algo.week05.binary.exercise;
  *
  * 分析时间空间复杂度
  *
+ * O(logN)，最坏情况O(N)
+ *
  * @author liusha
  * @date 2021/12/28
  */
