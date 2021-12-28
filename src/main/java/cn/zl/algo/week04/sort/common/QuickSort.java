@@ -27,7 +27,6 @@ public class QuickSort {
         quickSort(arr, patition + 1, r);
     }
 
-    // 两种方式：双指针 TODO 再熟悉写
     private int patition(int[] arr, int p, int r) {
         // [p, j] 小于patition
         int j = p - 1;
