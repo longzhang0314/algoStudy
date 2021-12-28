@@ -15,7 +15,7 @@ public class Exercise09Test {
         head.next = new ListNode(2);
         head.next.next = new ListNode(1);
         head.next.next.next = new ListNode(3);
-        ListNode newHead = e.sortList(head);
+        ListNode newHead = e.sortList4(head);
 
         while (newHead != null) {
             System.out.println(newHead.val);
@@ -32,33 +32,33 @@ public class Exercise09Test {
             ListNode tail = newHead;
             ListNode p = head;
             while (p != null) {
-                // find q
-                ListNode q = p;
                 int cnt = 1;
+                // [p,q]
+                ListNode q = p;
                 while (q != null && cnt < step) {
                     q = q.next;
                     cnt++;
                 }
-                // [p,q] 1个
                 if (q == null || q.next == null) {
                     tail.next = p;
                     break;
                 }
-                // find r r至少有一个
+                // [p2, q2]
                 ListNode p2 = q.next;
-                ListNode r = q.next;
                 q.next = null;
+                ListNode q2 = p2;
                 cnt = 1;
-                while (r != null && cnt < step) {
-                    r = r.next;
+                while (q2 != null && cnt < step) {
+                    q2 = q2.next;
                     cnt++;
                 }
-                ListNode tmp = r == null ? null : r.next;
-                if (r != null) {
-                    r.next = null;
+                ListNode tmp = q2 == null ? null : q2.next;
+                if (q2 != null) {
+                    q2.next = null;
                 }
-                //[q+1, r]
-                ListNode[] headAndTail = mergeList(p, p2);
+
+                // merge [p,q] [p2,q2]
+                ListNode[] headAndTail = merge(p, p2);
                 tail.next = headAndTail[0];
                 tail = headAndTail[1];
                 p = tmp;
@@ -67,6 +67,33 @@ public class Exercise09Test {
             step *= 2;
         }
         return head;
+    }
+
+    // l1,l2 not null
+    private ListNode[] merge(ListNode l1, ListNode l2) {
+        ListNode newHead = new ListNode(0);
+        ListNode tail = newHead;
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                tail.next = l1;
+                l1 = l1.next;
+            } else {
+                tail.next = l2;
+                l2 = l2.next;
+            }
+            tail = tail.next;
+        }
+        while (l1 != null) {
+            tail.next = l1;
+            tail = tail.next;
+            l1 = l1.next;
+        }
+        while (l2 != null) {
+            tail.next = l2;
+            tail = tail.next;
+            l2 = l2.next;
+        }
+        return new ListNode[]{newHead.next, tail};
     }
 
     private int len(ListNode head) {
@@ -80,82 +107,88 @@ public class Exercise09Test {
         return cnt;
     }
 
-
-    private ListNode[] mergeList(ListNode l1, ListNode l2) {
-        ListNode newHead = new ListNode(0);
-        ListNode tail = newHead;
-        while (l1 != null && l2 != null) {
-            if (l1.val <= l2.val) {
-                ListNode tmp = l1.next;
-                tail.next = l1;
-                l1.next = null;
-                tail = tail.next;
-                l1 = tmp;
-            } else {
-                ListNode tmp = l2.next;
-                tail.next = l2;
-                l2.next = null;
-                tail = tail.next;
-                l2 = tmp;
-            }
-        }
-
-        while (l1 != null) {
-            tail.next = l1;
-            l1 = l1.next;
-            tail = tail.next;
-        }
-
-        while (l2 != null) {
-            tail.next = l2;
-            l2 = l2.next;
-            tail = tail.next;
-        }
-
-        return new ListNode[]{newHead.next, tail};
-    }
-
-
-
-
-    // 递归写法
-    public ListNode sortList2(ListNode head) {
+    // 冒泡
+    public ListNode sortList3(ListNode head) {
         if (head == null || head.next == null) return head;
-        ListNode min = findMin(head);
-        ListNode next = min.next;
-        min.next = null;
-        ListNode l1 = sortList2(head);
-        ListNode l2 = sortList2(next);
-        return merge(l1, l2);
-    }
-
-    private ListNode findMin(ListNode head) {
-        ListNode slow = head, fast = head;
-        while (fast != null && fast.next != null && fast.next.next != null) {
-            fast = fast.next.next;
-            slow = slow.next;
-        }
-        return slow;
-    }
-
-    private ListNode merge(ListNode l1, ListNode l2) {
-        if (l1 == null) return l2;
-        if (l2 == null) return l1;
         ListNode newHead = new ListNode(0);
-        ListNode p = newHead;
-        while (l1 != null && l2 != null) {
-            if (l1.val <= l2.val) {
-                p.next = l1;
-                p = p.next;
-                l1 = l1.next;
-            } else {
-                p.next = l2;
-                p = p.next;
-                l2 = l2.next;
+        newHead.next = head;
+        boolean flag = true;
+        while (flag) {
+            ListNode p = newHead;
+            int cnt = 0;
+            while (p.next != null && p.next.next != null) {
+                if (p.next.val > p.next.next.val) {
+                    cnt++;
+                    ListNode tmp = p.next;
+
+                    ListNode pNN = p.next.next;
+                    p.next.next = p.next.next.next;
+                    pNN.next = p.next;
+                    p.next = pNN;
+
+                    p = tmp;
+                } else {
+                    p = p.next;
+                }
             }
+            if (cnt == 0) flag = false;
         }
-        if (l1 != null) p.next = l1;
-        if (l2 != null) p.next = l2;
         return newHead.next;
     }
+
+
+    public ListNode sortList4(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode newHead = new ListNode(0);
+        newHead.next = head;
+        int n = len(head);
+        int cnt = 0;
+        while (cnt < n) {
+            ListNode p = newHead;
+            // 先走cnt步
+            int i = cnt;
+            while (i > 0 && p.next != null) {
+                i--;
+                p = p.next;
+            }
+            // 从p.next开始，找到的最小元素放到p的后面
+            ListNode q = p;
+            ListNode prev = q;
+            ListNode min = q.next;
+            while (q.next != null) {
+                if (q.next.val < min.val) {
+                    prev = q;
+                    min = q.next;
+                }
+                q = q.next;
+            }
+            prev.next = prev.next.next;
+            min.next = p.next;
+            p.next = min;
+
+            cnt++;
+        }
+        return newHead.next;
+    }
+
+
+    public ListNode sortList5(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode newHead = new ListNode(0);
+        ListNode p = head;
+        while (p != null) {
+            ListNode tmp = p.next;
+
+            ListNode q = newHead;
+            while (q.next != null && q.next.val < p.val) {
+                q = q.next;
+            }
+            p.next = q.next;
+            q.next = p;
+
+            p = tmp;
+        }
+        return newHead.next;
+    }
+
 }

@@ -5,9 +5,10 @@ import cn.zl.algo.week02.linked.common.ListNode;
 /**
  * 148. 排序链表（中等）
  *
- * TODO 链表上的冒泡、插入、选择排序都写一下
+ * 链表上的插入、选择排序都写一下
  *
  * 【注意】方法3，非递归解法，因为要空间O(1)
+ * 【注意】归并、冒泡、插入、选择
  *
  * @author liusha
  * @date 2021/12/21
@@ -62,6 +63,8 @@ public class Exercise09 {
         return newHead.next;
     }
 
+    // ========================================== 方法2 插入 =================================================
+
 
     // 方法2：插入排序 O(N^2) 不建议
     public ListNode sortList2(ListNode head) {
@@ -91,6 +94,9 @@ public class Exercise09 {
         }
         return newHead.next;
     }
+
+
+    // ==================================================== 方法3 非递归归并==============================================
 
 
     // 方法3：非递归归并，空间O(1)
@@ -186,6 +192,74 @@ public class Exercise09 {
         return new ListNode[]{newHead.next, tail};
     }
 
+    // ============================================= 方法4 冒泡 ==================================================
+
+
+    // 冒泡
+    public ListNode sortList4(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode newHead = new ListNode(0);
+        newHead.next = head;
+        boolean flag = true;
+        while (flag) {
+            ListNode p = newHead;
+            int cnt = 0;
+            while (p.next != null && p.next.next != null) {
+                if (p.next.val > p.next.next.val) {
+                    cnt++;
+                    ListNode tmp = p.next;
+
+                    ListNode pNN = p.next.next;
+                    p.next.next = p.next.next.next;
+                    pNN.next = p.next;
+                    p.next = pNN;
+
+                    p = tmp;
+                } else {
+                    p = p.next;
+                }
+            }
+            if (cnt == 0) flag = false;
+        }
+        return newHead.next;
+    }
+
+
+    // ============================================= 方法5 选择 ==================================================
+
+    public ListNode sortList5(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode newHead = new ListNode(0);
+        newHead.next = head;
+        int n = len(head);
+        int cnt = 0;
+        while (cnt < n) {
+            ListNode p = newHead;
+            // 先走cnt步
+            int i = cnt;
+            while (i > 0 && p.next != null) {
+                i--;
+                p = p.next;
+            }
+            // 从p.next开始，找到的最小元素放到p的后面
+            ListNode q = p;
+            ListNode prev = q;
+            ListNode min = q.next;
+            while (q.next != null) {
+                if (q.next.val < min.val) {
+                    prev = q;
+                    min = q.next;
+                }
+                q = q.next;
+            }
+            prev.next = prev.next.next;
+            min.next = p.next;
+            p.next = min;
+
+            cnt++;
+        }
+        return newHead.next;
+    }
 
 
 }
