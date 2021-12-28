@@ -3,7 +3,6 @@ package cn.zl.algo.week05.binary.example;
 /**
  * 例题4： 循环有序数组中查找最小元素（没有重复数据）
  *
- * TODO 有重复数据
  *
  * 153. 寻找旋转排序数组中的最小值
  *
