@@ -29,12 +29,67 @@ package cn.zl.algo.week05.binary.exercise;
  */
 public class Exercise18 {
 
+    public static void main(String[] args) {
+        Exercise18 e = new Exercise18();
+        int[] nums1 = new int[0];
+        int[] nums2 = {1};
+        System.out.println(e.findMedianSortedArrays(nums1, nums2));
+    }
+
 
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int m = nums1.length;
-        int n = nums2.length;
-        if (m == 0 && n == 0) return 0;
+        if (nums1.length == 0 && nums2.length == 0) return 0;
+        // 对更短的元素做二分查找
+        if (nums1.length > nums2.length) {
+            int[] tmp = nums1;
+            nums1 = nums2;
+            nums2 = tmp;
+        }
+        int m = nums1.length, n = nums2.length;
+        // 分隔线左侧元素个数（总数奇数的话左侧多一个）
+        int total = (m + n + 1) / 2;
+        // nums1的分隔线在哪个位置
+        int left = 0, right = m;
+        int mCnt = 0;
+        while (left <= right) {
+            int i = left + (right - left) / 2;
+            int j = total - i;
+            // 交叉小于则满足条件
+            if (i == 0) {
+                if (m == 0 || nums1[i] >= nums2[j - 1]) {
+                    mCnt = i;
+                    break;
+                } else {
+                    left = i + 1;
+                }
+            } else if (i == m) {
+                if (nums1[i - 1] <= nums2[j]) {
+                    mCnt = i;
+                    break;
+                } else {
+                    right = i - 1;
+                }
+            } else if (nums1[i - 1] <= nums2[j] && nums1[i] >= nums2[j - 1]) {
+                mCnt = i;
+                break;
+            } else if (nums1[i - 1] > nums2[j]) {
+                right = i - 1;
+            } else {
+                left = i + 1;
+            }
+        }
+        int nCnt = total - mCnt;
 
+        int mLeft = mCnt == 0 ? Integer.MIN_VALUE : nums1[mCnt - 1];
+        int mRight = mCnt == m ? Integer.MAX_VALUE : nums1[mCnt];
+        int nLeft = nCnt == 0 ? Integer.MIN_VALUE : nums2[nCnt - 1];
+        int nRight = nCnt == n ? Integer.MAX_VALUE : nums2[nCnt];
+
+        if ((m + n) % 2 == 0) {
+            return (double) (Math.max(mLeft, nLeft) + Math.min(mRight, nRight)) / 2;
+        } else {
+            return Math.max(mLeft, nLeft);
+        }
     }
 
 
