@@ -1,6 +1,5 @@
 package cn.zl.algo.week05.binary.exercise;
 
-import com.sun.xml.internal.bind.v2.TODO;
 
 /**
  * 154. 寻找旋转排序数组中的最小值2（困难）有重复元素
@@ -34,28 +33,21 @@ public class Exercise17 {
     // 2 3 4 5 6 7 1 1 1
     // 2 2 2 3 4 5 6 7 1
     // 2 2 2 2 5 6 7 1 2 2
-    // TODO 还没做完
     public int findMin(int[] nums) {
         int n = nums.length;
         int left = 0, right = n - 1;
         while (left <= right) {
+            // 特殊处理
             if (left == right) return nums[left];
             int mid = left + (right - left) / 2;
-            if (nums[mid] < nums[(mid - 1 + n) % n] && nums[mid] < nums[(mid + 1) % n]) {
+            // 找到的情况
+            if ((mid != 0 && nums[mid] < nums[mid - 1]) || (mid == 0 && nums[mid] < nums[right])) {
                 return nums[mid];
-            }
-            if (nums[mid] == nums[left]) {
-                left++;
-                continue;
-            }
-            if (nums[mid] == nums[right]) {
-                right--;
-                continue;
-            }
-
-            if (nums[mid] > nums[right]) { // 右边循环有序
+            } else if (nums[mid] > nums[right]) { // 右侧循环有序
                 left = mid + 1;
-            } else {
+            } else if (nums[mid] == nums[right]) { // TODO 第一期视频：处理逻辑
+                right--;
+            } else { // 左侧有序
                 right = mid - 1;
             }
         }
