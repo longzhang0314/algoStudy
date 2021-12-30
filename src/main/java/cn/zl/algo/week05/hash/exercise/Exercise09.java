@@ -1,9 +1,8 @@
 package cn.zl.algo.week05.hash.exercise;
 
 /**
- * 242.49.136.349.1122.706
- *
  * 242. 有效的字母异位词(简单)
+ *
  *
  * @author liusha
  * @date 2021/12/30
