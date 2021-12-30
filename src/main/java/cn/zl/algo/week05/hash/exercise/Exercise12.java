@@ -37,7 +37,7 @@ public class Exercise12 {
         }
         int[] ans = new int[res.size()];
         for (int i = 0; i < res.size(); i++) {
-            ans[i] = res[i];
+            ans[i] = res.get(i);
         }
         return ans;
     }
