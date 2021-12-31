@@ -3,7 +3,6 @@ package cn.zl.algo.week05.hash.exercise;
 import java.util.*;
 
 /**
- * 1122.706
  * 349. 两个数组的交集(简单)
  *
  * 给定两个数组，编写一个函数来计算它们的交集。
