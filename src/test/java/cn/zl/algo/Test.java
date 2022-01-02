@@ -1,5 +1,6 @@
 package cn.zl.algo;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.TreeMap;
@@ -14,6 +15,9 @@ public class Test {
 
     public static void main(String[] args) {
         Test t = new Test();
+        System.out.println(t.asteroidsDestroyed(10, new int[]{3, 9, 19, 5, 21}));
+
+
 //        int[] apples = {1,2,3,5,2};
 //        int[] apples = {3,0,0,0,0,2};
 //        int[] apples = {20000};
@@ -21,10 +25,52 @@ public class Test {
 //        int[] days = {3,2,1,4,2};
 //        int[] days = {3,0,0,0,0,2};
 //        int[] days = {20000};
-        int[] apples = {9,10,1,7,0,2,1,4,1,7,0,11,0,11,0,0,9,11,11,2,0,5,5};
-        int[] days = {3,19,1,14,0,4,1,8,2,7,0,13,0,13,0,0,2,2,13,1,0,3,7};
+//        int[] apples = {9,10,1,7,0,2,1,4,1,7,0,11,0,11,0,0,9,11,11,2,0,5,5};
+//        int[] days = {3,19,1,14,0,4,1,8,2,7,0,13,0,13,0,0,2,2,13,1,0,3,7};
+//
+//        System.out.println(t.eatenApples(apples, days));
+    }
 
-        System.out.println(t.eatenApples(apples, days));
+
+    public boolean asteroidsDestroyed(int mass, int[] asteroids) {
+        int n = asteroids.length;
+        // int sum = 0;
+        // for (int num : asteroids) {
+        //     sum += num;
+        // }
+        Arrays.sort(asteroids);
+        boolean[] visited = new boolean[n];
+        int cnt = n;
+        // 每次二分找到小于等于mass的最大值，直到找不到且asteroids不为空返回false
+        while (cnt > 0) {
+            boolean flag = false;
+            // 找到小于等于mass的最大值
+            int left = 0, right = n - 1;
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (asteroids[mid] <= mass) {
+                    if (mid == n - 1 || asteroids[mid + 1] > mass) {
+                        // 判断是否是被看过的
+                        int i = mid;
+                        while (i >= 0 && visited[i]) {
+                            i--;
+                        }
+                        if (i < 0) return false;
+                        visited[i] = true;
+                        flag = true;
+                        mass += asteroids[i];
+                        break;
+                    } else {
+                        left = mid + 1;
+                    }
+                } else {
+                    right = mid - 1;
+                }
+            }
+            if (!flag) return false;
+            cnt--;
+        }
+        return true;
     }
 
 

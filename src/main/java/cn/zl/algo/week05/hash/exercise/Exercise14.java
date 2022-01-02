@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 /**
  * 706. 设计哈希映射(简单)
- *
+ * <p>
  * //不使用任何内建的哈希表库设计一个哈希映射（HashMap）。
  * //
  * // 实现 MyHashMap 类：
@@ -23,7 +23,7 @@ import java.util.LinkedList;
  * //[[], [1, 1], [2, 2], [1], [3], [2, 1], [2], [2], [2]]
  * //输出：
  * //[null, null, null, 1, -1, null, 1, null, -1]
- *
+ * <p>
  * // 0 <= key, value <= 106
  * // 最多调用 104 次 put、get 和 remove 方法
  *
@@ -32,13 +32,13 @@ import java.util.LinkedList;
  */
 public class Exercise14 {
 
-    // TODO 还没在力扣上验证
     class MyHashMap {
 
         private class Entry {
             int key;
             int value;
-            Entry (int key, int value) {
+
+            Entry(int key, int value) {
                 this.key = key;
                 this.value = value;
             }
@@ -57,8 +57,18 @@ public class Exercise14 {
 
         public void put(int key, int value) {
             int idx = hash(key);
-            Entry entry = new Entry(key, value);
-            arr[idx].addFirst(entry);
+            boolean flag = false;
+            for (Entry entry : arr[idx]) {
+                if (entry.key == key) {
+                    entry.value = value;
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                Entry entry = new Entry(key, value);
+                arr[idx].addFirst(entry);
+            }
         }
 
         public int get(int key) {
@@ -73,10 +83,15 @@ public class Exercise14 {
 
         public void remove(int key) {
             int idx = hash(key);
+            Entry remove = null;
             for (Entry entry : arr[idx]) {
                 if (entry.key == key) {
-                    arr[idx].remove(entry);
+                    remove = entry;
+                    break;
                 }
+            }
+            if (remove != null) {
+                arr[idx].remove(remove);
             }
         }
 
