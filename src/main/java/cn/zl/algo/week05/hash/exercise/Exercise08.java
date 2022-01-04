@@ -20,6 +20,10 @@ package cn.zl.algo.week05.hash.exercise;
  * //
  * // 2 <= n <= 100000
  *
+ * TODO 尝试用位图做
+ *
+ * 讲到此处，1：17：24
+ *
  * @author liusha
  * @date 2021/12/30
  */

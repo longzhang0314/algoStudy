@@ -25,6 +25,8 @@ import java.util.List;
  * // 0 <= strs[i].length <= 100
  * // strs[i] 仅包含小写字母
  *
+ * TODO 尝试hash表做法，以及hash表存二维数组索引写法训练
+ *
  * @author liusha
  * @date 2021/12/30
  */
@@ -35,6 +37,7 @@ public class Exercise10 {
         System.out.println(JSON.toJSONString(e.groupAnagrams(strs)));
     }
 
+    // 方法1：暴力对比法
     public List<List<String>> groupAnagrams(String[] strs) {
         List<List<String>> res = new ArrayList<>();
         for (int i = 0; i < strs.length; i++) {
