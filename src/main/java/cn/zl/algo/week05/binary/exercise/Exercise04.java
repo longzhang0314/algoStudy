@@ -9,6 +9,8 @@ package cn.zl.algo.week05.binary.exercise;
  * 输入: nums = [1,3,5,6], target = 5
  * 输出: 2
  *
+ * 【查找第一个大于等于给定值的位置】
+ *
  * @author liusha
  * @date 2021/12/27
  */

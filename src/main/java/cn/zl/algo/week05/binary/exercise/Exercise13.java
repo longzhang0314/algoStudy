@@ -20,6 +20,7 @@ public class Exercise13 {
             int mid = left + (right - left) / 2;
             // 通过mid找到行和列索引 m = 5, n = 8, mid = 19  第3行第
             int i = mid / n;
+            // int j = mid % n;
             int j = mid - i * n;
             if (matrix[i][j] == target) {
                 return true;

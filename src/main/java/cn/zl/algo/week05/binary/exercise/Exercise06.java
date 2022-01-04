@@ -12,10 +12,29 @@ package cn.zl.algo.week05.binary.exercise;
  *  输入：words = ["at", "", "", "", "ball", "", "", "car", "", "","dad", "", ""], s = "ball"
  *  输出：4
  *
+ * 【注意】 可以优化
  * @author liusha
  * @date 2021/12/27
  */
 public class Exercise06 {
+    public int findString1(String[] words, String s) {
+        if (words == null || words.length == 0) return -1;
+        int left = 0, right = words.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (words[mid].equals(s)) {
+                return mid;
+            } else if (words[mid].equals("")) {
+                if (words[left].equals(s)) return left;
+                else left++;
+            } else if (words[mid].compareTo(s) < 0) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return -1;
+    }
 
     public int findString(String[] words, String s) {
         if (words == null || words.length == 0) return -1;
