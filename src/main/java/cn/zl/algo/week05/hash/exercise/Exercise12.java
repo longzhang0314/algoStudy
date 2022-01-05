@@ -16,6 +16,9 @@ import java.util.*;
  * 输出结果中的每个元素一定是唯一的。
  * // 我们可以不考虑输出结果的顺序。
  *
+ * TODO 优化。用HashSet写一下
+ * TODO 【扩展】K个数组的交集
+ *
  * @author liusha
  * @date 2021/12/30
  */
