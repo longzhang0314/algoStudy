@@ -2,8 +2,7 @@ package cn.zl.algo.week05.hash.exercise;
 
 import com.alibaba.fastjson.JSON;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 49.字母异位词分组（中等）
@@ -25,7 +24,7 @@ import java.util.List;
  * // 0 <= strs[i].length <= 100
  * // strs[i] 仅包含小写字母
  *
- * TODO 尝试hash表做法，以及hash表存二维数组索引写法训练
+ * 【注意】]hash表做法，以及hash表存二维数组索引写法训练
  *
  * @author liusha
  * @date 2021/12/30
@@ -37,7 +36,41 @@ public class Exercise10 {
         System.out.println(JSON.toJSONString(e.groupAnagrams(strs)));
     }
 
-    // 方法1：暴力对比法
+    // 方法3：哈希表存二维数组索引，捣腾一下
+    public List<List<String>> groupAnagrams3(String[] strs) {
+        Map<String, Integer> map = new HashMap<>();
+        List<List<String>> res = new ArrayList<>();
+        for (String str : strs) {
+            char[] cc = str.toCharArray();
+            Arrays.sort(cc);
+            String s = new String(cc);
+            if (!map.containsKey(s)) {
+                map.put(s, res.size());
+                res.add(new ArrayList<>());
+            }
+            int idx = map.get(s);
+            List<String> list = res.get(idx);
+            list.add(str);
+        }
+        return res;
+    }
+
+    // 方法2：哈希表
+    public List<List<String>> groupAnagrams2(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            char[] cc = str.toCharArray();
+            Arrays.sort(cc);
+            String s = new String(cc);
+            if (!map.containsKey(s)) {
+                map.put(s, new ArrayList<>());
+            }
+            map.get(s).add(str);
+        }
+        return new ArrayList<>(map.values());
+    }
+
+    // 方法1：暴力对比法（不建议）
     public List<List<String>> groupAnagrams(String[] strs) {
         List<List<String>> res = new ArrayList<>();
         for (int i = 0; i < strs.length; i++) {

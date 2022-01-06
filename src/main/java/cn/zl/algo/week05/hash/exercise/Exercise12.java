@@ -16,14 +16,41 @@ import java.util.*;
  * 输出结果中的每个元素一定是唯一的。
  * // 我们可以不考虑输出结果的顺序。
  *
- * TODO 优化。用HashSet写一下
- * TODO 【扩展】K个数组的交集
+ * 【扩展】K个数组的交集
  *
  * @author liusha
  * @date 2021/12/30
  */
 public class Exercise12 {
 
+    // hashset
+    public int[] intersection1(int[] nums1, int[] nums2) {
+        // 长的是num1,短的是nums2
+        if (nums1 == null || nums2 == null || nums1.length == 0 || nums2.length == 0) return new int[0];
+        if (nums1.length < nums2.length) {
+            int[] tmp = nums1;
+            nums1 = nums2;
+            nums2 = tmp;
+        }
+        Set<Integer> set = new HashSet<>();
+        for (int num2 : nums2) {
+            set.add(num2);
+        }
+        List<Integer> res = new ArrayList<>();
+        for (int num1 : nums1) {
+            if (set.contains(num1)) {
+                res.add(num1);
+                set.remove(num1);
+            }
+        }
+        int[] ans = new int[res.size()];
+        for (int i = 0; i < res.size(); i++) {
+            ans[i] = res.get(i);
+        }
+        return ans;
+    }
+
+    // hashmap
     public int[] intersection(int[] nums1, int[] nums2) {
         if (nums1 == null || nums2 == null || nums1.length == 0 || nums2.length == 0) return new int[0];
         Map<Integer, Boolean> map = new HashMap<>();

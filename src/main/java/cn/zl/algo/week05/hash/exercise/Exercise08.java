@@ -1,5 +1,6 @@
 package cn.zl.algo.week05.hash.exercise;
 
+
 /**
  *
  * 剑指 Offer 03 数组中重复的数字(简单)
@@ -20,7 +21,7 @@ package cn.zl.algo.week05.hash.exercise;
  * //
  * // 2 <= n <= 100000
  *
- * TODO 尝试用位图做
+ * 【注意】可以用位图做
  *
  * 讲到此处，1：17：24
  *
@@ -28,6 +29,11 @@ package cn.zl.algo.week05.hash.exercise;
  * @date 2021/12/30
  */
 public class Exercise08 {
+
+    public static void main(String[] args) {
+        int[] arr = {1,1,1};
+
+    }
 
     public int findRepeatNumber(int[] nums) {
         if (nums == null || nums.length == 0) return -1;
@@ -38,5 +44,37 @@ public class Exercise08 {
             if (cnt[num] > 1) return num;
         }
         return -1;
+    }
+
+    public int findRepeatNumber2(int[] nums) {
+        if (nums == null || nums.length == 0) return -1;
+        BitMap bitMap = new BitMap(nums.length);
+        for (int num : nums) {
+            if (bitMap.get(num)) return num;
+            bitMap.put(num);
+        }
+        return -1;
+    }
+
+    private static class BitMap {
+        private char[] chs;
+        private int n;
+
+        BitMap(int n) {
+            this.n = (n - 1) / 16 + 1;
+            this.chs = new char[this.n];
+        }
+
+        public void put(int num) {
+            int idx = num / 16;
+            int bitIdx = num % 16;
+            chs[idx] |= (1 << bitIdx);
+        }
+
+        public boolean get(int num) {
+            int idx = num / 16;
+            int bitIdx = num % 16;
+            return (chs[idx] & (1 << bitIdx)) != 0;
+        }
     }
 }
