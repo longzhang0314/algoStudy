@@ -10,13 +10,67 @@ import java.util.Queue;
 /**
  * 102. 二叉树的层序遍历（中等）
  *
+ * BFS三种方法：size，存层号（再写下这种解法），存null（再写下这种解法）
+ *
  * @author: longzhang
  * @date: 2022/1/8
  */
 public class Exercise02 {
 
 
-    // 方法1：BFS
+    private class MyTreeNode {
+        public TreeNode node;
+        public int level;
+        public MyTreeNode(TreeNode node, int level) {
+            this.node = node;
+            this.level = level;
+        }
+    }
+    // 方法4：存行号作为分行的依据
+    public List<List<Integer>> levelOrder4(TreeNode root) {
+        if (root == null) return new ArrayList<>();
+        List<List<Integer>> res = new ArrayList<>();
+        Queue<MyTreeNode> queue = new LinkedList<>();
+        queue.offer(new MyTreeNode(root, 0));
+        while (!queue.isEmpty()) {
+            MyTreeNode cur = queue.poll();
+            if (res.size() == cur.level) {
+                res.add(new ArrayList<>());
+            }
+            res.get(cur.level).add(cur.node.val);
+            if (cur.node.left != null) queue.offer(new MyTreeNode(cur.node.left, cur.level + 1));
+            if (cur.node.right != null) queue.offer(new MyTreeNode(cur.node.right, cur.level + 1));
+        }
+        return res;
+    }
+
+
+    // 方法3：BFS，存null作为层与层之间间隔
+    public List<List<Integer>> levelOrder3(TreeNode root) {
+        if (root == null) return new ArrayList<>();
+        List<List<Integer>> res = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        queue.offer(null);
+        while (!queue.isEmpty()) {
+            List<Integer> list = new ArrayList<>();
+            while (true) {
+                TreeNode cur = queue.poll();
+                if (cur == null) break;
+                list.add(cur.val);
+                if (cur.left != null) queue.offer(cur.left);
+                if (cur.right != null) queue.offer(cur.right);
+            }
+            res.add(list);
+            if (!queue.isEmpty()) {
+                queue.offer(null);
+            }
+        }
+        return res;
+    }
+
+
+    // 方法1：BFS：size
     public List<List<Integer>> levelOrder1(TreeNode root) {
         if (root == null) return new ArrayList<>();
         List<List<Integer>> res = new ArrayList<>();

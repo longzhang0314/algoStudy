@@ -7,6 +7,8 @@ import java.util.Queue;
 
 /**
  * 513. 找树左下角的值（中等）
+ *
+ * 每层从右往左遍历，最后一个节点（BFS写法）
  * @author: longzhang
  * @date: 2022/1/8
  */
