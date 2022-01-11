@@ -4,6 +4,8 @@ import cn.zl.algo.week06.tree.common.TreeNode;
 
 /**
  * 面试题 04.06. 后继者（中等）
+ *
+ * 全局只记录一个res和boolean
  * @author: longzhang
  * @date: 2022/1/8
  */
@@ -23,10 +25,10 @@ public class Exercise03 {
         System.out.println(e.inorderSuccessor(root, p).val);
     }
 
-    TreeNode prev = null;
+    // 方法2：变量记录
+    boolean coming = false;
     TreeNode res = null;
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
-        if (p == null) return null;
         inorder(root, p);
         return res;
     }
@@ -34,10 +36,36 @@ public class Exercise03 {
     private void inorder(TreeNode root, TreeNode p) {
         if (root == null || res != null) return;
         inorder(root.left, p);
-        // 这里需要剪枝，防止值被修改
         if (res != null) return;
-        if (prev == p) {
+        if (coming) {
             res = root;
+            return;
+        }
+        if (root == p) {
+            coming = true;
+        }
+        inorder(root.right, p);
+    }
+
+
+
+
+    // 方法1：父节点记录
+    TreeNode prev = null;
+    TreeNode res1 = null;
+    public TreeNode inorderSuccessor1(TreeNode root, TreeNode p) {
+        if (p == null) return null;
+        inorder1(root, p);
+        return res1;
+    }
+
+    private void inorder1(TreeNode root, TreeNode p) {
+        if (root == null || res1 != null) return;
+        inorder1(root.left, p);
+        // 这里需要剪枝，防止值被修改
+        if (res1 != null) return;
+        if (prev == p) {
+            res1 = root;
             return;
         }
         prev = root;

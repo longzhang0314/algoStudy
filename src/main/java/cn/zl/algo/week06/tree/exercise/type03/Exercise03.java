@@ -4,6 +4,9 @@ import cn.zl.algo.week06.tree.common.TreeNode;
 
 /**
  * 剑指 Offer 55 - II. 平衡二叉树（中等）
+ *
+ * TODO do 过两天再写一遍，关注递归模板思路
+ *
  * @author: longzhang
  * @date: 2022/1/8
  */
