@@ -8,6 +8,9 @@ import java.util.List;
 
 /**
  * 面试题 04.03. 特定深度节点链表（中等）
+ *
+ * 【BFS】也可
+ * 【扩展】用right指针连接
  * @author: longzhang
  * @date: 2022/1/13
  */
