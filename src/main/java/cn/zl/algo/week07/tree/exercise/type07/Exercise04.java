@@ -1,4 +1,4 @@
-package cn.zl.algo.week07.tree.type07;
+package cn.zl.algo.week07.tree.exercise.type07;
 
 /**
  * 剑指 Offer 33. 二叉搜索树的后序遍历序列（中等）

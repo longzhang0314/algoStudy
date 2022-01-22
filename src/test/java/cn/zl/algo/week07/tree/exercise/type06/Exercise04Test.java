@@ -1,4 +1,4 @@
-package cn.zl.algo.week07.tree.type06;
+package cn.zl.algo.week07.tree.exercise.type06;
 
 import cn.zl.algo.week02.linked.common.ListNode;
 import cn.zl.algo.week06.tree.common.TreeNode;

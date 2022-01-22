@@ -1,4 +1,4 @@
-package cn.zl.algo.week07.tree.type06;
+package cn.zl.algo.week07.tree.exercise.type06;
 
 /**
  * 剑指 Offer 36. 二叉搜索树与双向链表（中等）

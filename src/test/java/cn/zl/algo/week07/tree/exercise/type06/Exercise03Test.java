@@ -1,4 +1,4 @@
-package cn.zl.algo.week07.tree.type06;
+package cn.zl.algo.week07.tree.exercise.type06;
 
 /**
  * @author liusha
