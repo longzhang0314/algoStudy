@@ -3,15 +3,11 @@ package cn.zl.algo.week07.tree.type05;
 import cn.zl.algo.week06.tree.common.TreeNode;
 
 /**
- * 剑指 Offer 68 - I. 二叉搜索树的最近公共祖先（中等）
- *
- * 递归、非递归实现
- * @author: longzhang
- * @date: 2022/1/13
+ * @author liusha
+ * @date 2022/1/22
  */
-public class Exercise02 {
+public class Exercise02Test {
 
-    // 递归解法
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || root == p || root == q) return root;
         if (root.val < p.val && root.val < q.val) {
@@ -23,7 +19,6 @@ public class Exercise02 {
         }
     }
 
-    // 非递归
     public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || root == p || root == q) return root;
         TreeNode cur = root;

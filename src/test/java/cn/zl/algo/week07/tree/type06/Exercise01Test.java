@@ -3,11 +3,11 @@ package cn.zl.algo.week07.tree.type06;
 import cn.zl.algo.week06.tree.common.TreeNode;
 
 /**
- * 114. 二叉树展开为链表（中等）
- * @author: longzhang
- * @date: 2022/1/13
+ * 展开，用right连接
+ * @author liusha
+ * @date 2022/1/22
  */
-public class Exercise01 {
+public class Exercise01Test {
 
     TreeNode newHead = new TreeNode(0);
     TreeNode tail = newHead;
@@ -20,10 +20,10 @@ public class Exercise01 {
         TreeNode left = root.left;
         TreeNode right = root.right;
         tail.right = root;
-        tail = root;
-        root.left = null;
+        tail = tail.right;
+        tail.left = null;
+        tail.right = null;
         preorder(left);
-        // 这里不能用root.right，因为在连接的时候root.right已经变了
         preorder(right);
     }
 }

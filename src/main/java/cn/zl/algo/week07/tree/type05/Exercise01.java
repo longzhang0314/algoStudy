@@ -5,7 +5,6 @@ import cn.zl.algo.week06.tree.common.TreeNode;
 /**
  * 236. 二叉树的最近公共祖先（中等）
  *
- * TODO do 再练练
  * @author: longzhang
  * @date: 2022/1/13
  */
