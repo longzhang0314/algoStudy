@@ -3,9 +3,9 @@ package cn.zl.algo.week06.tree.exercise.type03;
 import cn.zl.algo.week06.tree.common.TreeNode;
 
 /**
- * 98. 验证二叉搜索树（中等
+ * 98. 验证二叉搜索树（中等）
  *
- * TODO do 方法2：递归实现，过两天再写一遍，关注递归模板思路
+ * TODO 方法2：递归实现，过两天再写一遍，关注递归模板思路
  *
  * @author: longzhang
  * @date: 2022/1/8

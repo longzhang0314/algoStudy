@@ -4,6 +4,8 @@ import cn.zl.algo.week06.tree.common.TreeNode;
 
 /**
  * 124. 二叉树中的最大路径和 （困难）
+ *
+ * [注意]经典思路
  * @author liusha
  * @date 2022/1/15
  */
