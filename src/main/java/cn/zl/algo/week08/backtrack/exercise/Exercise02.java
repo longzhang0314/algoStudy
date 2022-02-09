@@ -63,7 +63,7 @@ public class Exercise02 {
         int col = (j / 3) * 3;
         for (int r = row; r < row + 3; r++) {
             for (int c = col; c < col + 3; c++) {
-                if (i == r && j == c) continue;;
+                if (i == r && j == c) continue;
                 if (board[r][c] == target) return false;
             }
         }
