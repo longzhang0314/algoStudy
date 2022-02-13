@@ -7,6 +7,8 @@ import java.util.List;
  * 面试题 08.12 八皇后（困难）
  *
  * 用Q和.表示
+ *
+ * TODO do 二维数组做
  * @author liusha
  * @date 2022/1/24
  */
