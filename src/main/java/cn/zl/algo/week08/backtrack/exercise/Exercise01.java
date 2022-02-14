@@ -8,7 +8,7 @@ import java.util.List;
  *
  * 用Q和.表示
  *
- * TODO do 二维数组做
+ * 一维和二维数组都可以做
  * @author liusha
  * @date 2022/1/24
  */
@@ -73,4 +73,53 @@ public class Exercise01 {
         }
         return list;
     }
+
+    // ========================== 二维数组 ===========================================
+    public List<List<String>> solveNQueens2(int n) {
+        if (n <= 0) return new ArrayList<>();
+        List<List<String>> res = new ArrayList<>();
+        char[][] board = new char[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                board[i][j] = '.';
+            }
+        }
+        slove2(res, board, n, 0);
+        return res;
+    }
+
+    private void slove2(List<List<String>> res, char[][] board, int n, int row) {
+        if (row == n) {
+            List<String> snapshot = new ArrayList<>(n);
+            for (char[] cc : board) {
+                snapshot.add(new String(cc));
+            }
+            res.add(snapshot);
+            return;
+        }
+
+        for (int col = 0; col < n; col++) {
+            if (isValid2(board, row, col)) {
+                board[row][col] = 'Q';
+                slove2(res, board, n, row + 1);
+                board[row][col] = '.';
+            }
+        }
+    }
+
+    private boolean isValid2(char[][] board, int row, int col) {
+        int leftUp = col - 1, rightUp = col + 1;
+        row--;
+        while (row >= 0) {
+            if (board[row][col] == 'Q') return false;
+            if (leftUp >= 0 && board[row][leftUp] == 'Q') return false;
+            if (rightUp < board.length && board[row][rightUp] == 'Q') return false;
+            leftUp--;
+            rightUp++;
+            row--;
+        }
+
+        return true;
+    }
+
 }
