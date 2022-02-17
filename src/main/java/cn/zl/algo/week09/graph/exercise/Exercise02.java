@@ -1,15 +1,52 @@
 package cn.zl.algo.week09.graph.exercise;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 /**
  * 08.10. 颜色填充（简单）
- * TODO 运行错误
+ *
  * @author liusha
  * @date 2022/2/17
  */
 public class Exercise02 {
 
-    int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    // 方法1：BFS
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        if (image == null || image.length == 0 || image[0].length == 0) return image;
+        int m = image.length, n = image[0].length;
+        int originColor = image[sr][sc];
+        if (originColor == newColor) return image;
+        boolean[][] visited = new boolean[m][n];
+        Queue<String> queue = new ArrayDeque<>();
+        visited[sr][sc] = true;
+        queue.offer(sr+ "_" + sc);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                String cur = queue.poll();
+                String[] curArr = cur.split("_");
+                int row = Integer.parseInt(curArr[0]);
+                int col = Integer.parseInt(curArr[1]);
+                image[row][col] = newColor;
+                for (int[] direction : directions) {
+                    int newRow = row + direction[0];
+                    int newCol = col + direction[1];
+                    if (isValid(image, visited, newRow, newCol, originColor)) {
+                        visited[newRow][newCol] = true;
+                        queue.offer(newRow + "_" + newCol);
+                    }
+                }
+            }
+        }
+        return image;
+    }
+
+    //  =================  方法2 ： DFS
+
+    int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    public int[][] floodFill2(int[][] image, int sr, int sc, int newColor) {
         if (image == null || image.length == 0 || image[0].length == 0) return image;
         int m = image.length, n = image[0].length;
         int originColor = image[sr][sc];
@@ -25,7 +62,7 @@ public class Exercise02 {
         for (int[] direction : directions) {
             int newRow = row + direction[0];
             int newCol = col + direction[1];
-            if (isValid(image, visited, newCol, newCol, originColor)) {
+            if (isValid(image, visited, newRow, newCol, originColor)) {
                 dfs(image, visited, newRow, newCol, originColor, newColor);
             }
         }
