@@ -5,7 +5,7 @@ import java.util.Queue;
 
 /**
  * 面试题.04.01. 节点间通路
- *
+ * TODO 邻接表写法，但不需要真的建一个Graph class
  * @author liusha
  * @date 2022/2/17
  */

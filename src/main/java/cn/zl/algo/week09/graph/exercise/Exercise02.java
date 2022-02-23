@@ -51,6 +51,7 @@ public class Exercise02 {
         int m = image.length, n = image[0].length;
         int originColor = image[sr][sc];
         if (originColor == newColor) return image;
+        // TODO 这道题不需要visited数组
         boolean[][] visited = new boolean[m][n];
         dfs(image, visited, sr, sc, originColor, newColor);
         return image;

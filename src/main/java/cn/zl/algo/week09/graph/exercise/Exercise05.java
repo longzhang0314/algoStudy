@@ -26,6 +26,7 @@ public class Exercise05 {
     int count = 0;
     public int[] pondSizes(int[][] land) {
         int m = land.length, n = land[0].length;
+        // TODO 可以把值改为0代替visited
         boolean[][] visited = new boolean[m][n];
         PriorityQueue<Integer> heap = new PriorityQueue<>();
         for (int i = 0; i < m; i++) {
