@@ -29,4 +29,30 @@ public class Exercise05 {
     }
 
 
+    // 空间优化
+    public int maxProfit2(int[] prices) {
+        int n = prices.length;
+        // 不持有，未冻结
+        int dp00 = 0;
+        // 不持有，冻结
+        int dp01 = 0;
+        // 持有，未冻结
+        int dp10 = -prices[0];
+        // 持有，冻结   (卖出才冻结，不符合条件就0)
+        int dp11 = 0;
+
+        for (int i = 1; i < n; i++) {
+            int dp0_00 = Math.max(dp00, dp01);
+            int dp0_01 = dp10 + prices[i];
+            int dp0_10 = Math.max(dp10, dp00 - prices[i]);
+            // int dp0_11, 不可能由前一个状态进入当前持有且冻结的状态
+
+            dp00 = dp0_00;
+            dp01 = dp0_01;
+            dp10 = dp0_10;
+        }
+        return Math.max(dp00, dp01);
+    }
+
+
 }

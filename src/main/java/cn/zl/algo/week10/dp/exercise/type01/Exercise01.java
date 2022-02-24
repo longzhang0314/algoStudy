@@ -37,4 +37,28 @@ public class Exercise01 {
         return dp[nums.length - 1][sum];
     }
 
+
+    // 空间优化
+    public boolean canPartition2(int[] nums) {
+        int sum = 0;
+        for (int num : nums) {
+            sum += num;
+        }
+        if (sum % 2 != 0) return false;
+        sum /= 2;
+        boolean[] dp = new boolean[sum + 1];
+        dp[0] = true;
+        if (nums[0] <= sum) {
+            dp[nums[0]] = true;
+        }
+        for (int i = 1; i < nums.length; i++) {
+            for (int j = sum; j >= 0; j--) {
+                if (dp[j] || (j - nums[i] >= 0 && dp[j - nums[i]])) {
+                    dp[j] = true;
+                }
+            }
+        }
+        return dp[sum];
+    }
+
 }

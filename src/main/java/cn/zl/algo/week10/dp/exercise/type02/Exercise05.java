@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 120.
+ * 120. 三角形最小路径和
  *
  * @author liusha
  * @date 2022/2/23
@@ -30,8 +30,18 @@ public class Exercise05 {
     // 方法2：一维dp
     public int minimumTotal2(List<List<Integer>> triangle) {
         int n = triangle.size();
-        // TODO do
-        return -1;
+        int[] dp = new int[n];
+        dp[0] = triangle.get(0).get(0);
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j >= 0; j--) {
+                dp[j] = triangle.get(i).get(j) + Math.min(j < i ? dp[j] : Integer.MAX_VALUE, j - 1 >= 0 ? dp[j - 1] : Integer.MAX_VALUE);
+            }
+        }
+        int min = Integer.MAX_VALUE;
+        for (int j = 0; j < n; j++) {
+            min = Math.min(min, dp[j]);
+        }
+        return min;
     }
 
 

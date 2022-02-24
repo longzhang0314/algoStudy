@@ -21,4 +21,20 @@ public class Exercise04 {
         }
         return Math.max(dp[n - 1][0], dp[n - 1][1]);
     }
+
+
+    // 空间优化
+    public int maxProfit2(int[] prices, int fee) {
+        int n = prices.length;
+        int dp0 = 0;
+        int dp1 = -prices[0] - fee;
+        for (int i = 1; i < n; i++) {
+            int dp00 = Math.max(dp0, dp1 + prices[i]);
+            int dp11 = Math.max(dp1, dp0 - prices[i] - fee);
+
+            dp0 = dp00;
+            dp1 = dp11;
+        }
+        return Math.max(dp0, dp1);
+    }
 }
