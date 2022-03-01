@@ -1,4 +1,4 @@
-package cn.zl.algo.week10.dp.exercise.type04;
+package cn.zl.algo.week11.dp.exercise.type01;
 
 /**
  * 70.爬楼梯
