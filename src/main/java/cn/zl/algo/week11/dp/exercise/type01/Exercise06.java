@@ -6,6 +6,10 @@ import java.util.List;
 /**
  * 139.单词拆分
  *
+ * TODO do late 【重要】爬楼梯，可以trie树优化
+ *
+ * 后缀匹配，前面部分可达
+ *
  * @author liusha
  * @date 2022/2/28
  */
@@ -14,6 +18,7 @@ public class Exercise06 {
     public static void main(String[] args) {
         Exercise06 e = new Exercise06();
         String s = "leetcode";
+        System.out.println(s.startsWith("de", 6));
         List<String> wordDict = Arrays.asList("leet", "code");
         System.out.println(e.wordBreak(s, wordDict));
     }

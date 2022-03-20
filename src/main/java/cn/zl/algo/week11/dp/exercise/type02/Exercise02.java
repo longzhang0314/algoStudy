@@ -3,6 +3,8 @@ package cn.zl.algo.week11.dp.exercise.type02;
 /**
  * 72.编辑距离
  *
+ * TODO do late 初始化代码不够优雅
+ *
  * @author liusha
  * @date 2022/3/1
  */

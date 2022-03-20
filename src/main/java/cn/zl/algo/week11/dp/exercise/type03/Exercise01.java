@@ -3,6 +3,10 @@ package cn.zl.algo.week11.dp.exercise.type03;
 /**
  * 300.最长递增子序列
  *
+ * 记住
+ *
+ * TODO do 可以看看O(logN的解法),pdf有解法
+ *
  * @author liusha
  * @date 2022/3/2
  */

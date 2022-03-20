@@ -2,8 +2,9 @@ package cn.zl.algo.week11.dp.exercise.type01;
 
 /**
  * 518.零钱兑换2
+ * 硬币组合数
  *
- * TODO do 重复
+ * TODO do 重复 爬楼梯模型（注意与真正的爬楼梯的区别）+完全背包 两种做法
  *
  * @author liusha
  * @date 2022/2/28
