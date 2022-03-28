@@ -1,13 +1,19 @@
 package cn.zl.algo.week12.window.exercise;
 
 /**
- * 76.
+ * 76.最小覆盖子串
  *
- * TODO
  * @author liusha
  * @date 2022/3/28
  */
 public class Exercise04 {
+
+    public static void main(String[] args) {
+        String s = "ADOBECODEBANC";
+        String t = "ABC";
+        Exercise04 e = new Exercise04();
+        System.out.println(e.minWindow(s, t));
+    }
 
     public String minWindow(String s, String t) {
         if (s.length() < t.length()) return "";
@@ -17,33 +23,47 @@ public class Exercise04 {
         }
         int cnt = t.length();
         int n = s.length();
-        int i = 0, j = cnt - 1;
-        for (int k = i; k <= j; k++) {
-            arr[getIdx(s.charAt(k))]--;
-            if (arr[getIdx(s.charAt(k))] >= 0) {
-                cnt--;
-            }
-        }
-        if (cnt == 0) {
-            return s.substring(i, j + 1);
-        }
+        // 窗口：[i, j)
+        int i = 0, j = 0;
 
-        while (j + 1 < n) {
-            j++;
+        int min = Integer.MAX_VALUE;
+        String res = "";
+        while (j < n) {
             arr[getIdx(s.charAt(j))]--;
             if (arr[getIdx(s.charAt(j))] >= 0) {
+                // 有效字符
                 cnt--;
             }
-            if (cnt == 0) break;
-        }
-        if (j + 1 == n) return "";
-        // 收缩
-        while (i < j) {
+            // 还没凑够
+            if (cnt > 0) {
+                j++;
+                continue;
+            }
 
+            // 缩减
+            while (i <= j) {
+                arr[getIdx(s.charAt(i))]++;
+                if (arr[getIdx(s.charAt(i))] > 0) {
+                    // 有效字符
+                    if (j - i + 1 < min) {
+                        min = j - i + 1;
+                        res = s.substring(i, j + 1);
+                    }
+                    i++;
+                    j++;
+                    cnt++;
+                    break;
+                }
+                i++;
+            }
         }
+        return res;
     }
 
     private int getIdx(char c) {
-
+        // 0 - 25
+        if (c >= 'a' && c <= 'z') return c - 'a';
+        if (c >= 'A' && c <= 'Z') return c - 'A' + 26;
+        return -1;
     }
 }
