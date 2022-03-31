@@ -1,7 +1,7 @@
 package cn.zl.algo.week12.bit.exercise;
 
 /**
- * mst 17.04 消失的数字
+ * 面试题 17.04 消失的数字
  *
  *
  * @author liusha
