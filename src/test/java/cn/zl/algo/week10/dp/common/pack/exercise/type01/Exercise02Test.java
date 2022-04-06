@@ -1,14 +1,11 @@
-package cn.zl.algo.week11.dp.exercise.type01;
+package cn.zl.algo.week10.dp.common.pack.exercise.type01;
 
 /**
- * 322.零钱兑换
- * 最少硬币个数
- *
- * 重复 爬楼梯模型+完全背包 两种做法
  * @author liusha
- * @date 2022/2/28
+ * @date 2022/4/6
  */
-public class Exercise02 {
+public class Exercise02Test {
+
 
     // 最少硬币个数 爬楼梯模型
     // 每一步可以选择爬coins里面的任意一个，到达amount时的最小个数
@@ -30,8 +27,8 @@ public class Exercise02 {
     }
 
 
-    // 完全背包模型解法
-    public int coinChange2(int[] coins, int amount) {
+    // 最少硬币个数 完全背包
+    public int coinChange(int[] coins, int amount) {
         int n = coins.length;
         int[][] dp = new int[n][amount + 1];
         for (int i = 0; i < n; i++) {
@@ -55,25 +52,5 @@ public class Exercise02 {
             }
         }
         return dp[n - 1][amount] == Integer.MAX_VALUE ? -1 : dp[n - 1][amount];
-    }
-
-
-
-    public int coinChange(int[] coins, int amount) {
-        int[] dp = new int[amount + 1];
-        dp[0] = 0;
-        // 使用0个coin形成amount
-        for (int i = 1; i <= amount; i++) {
-            // 使用0个不可能组成amount >= 1
-            dp[i] = Integer.MAX_VALUE;
-        }
-        for (int coin : coins) {
-            for (int i = 1; i <= amount; i++) {
-                if (i - coin >= 0 && dp[i - coin] != Integer.MAX_VALUE) {
-                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);
-                }
-            }
-        }
-        return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
     }
 }
