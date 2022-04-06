@@ -19,7 +19,7 @@ package cn.zl.algo.week11.dp.exercise.type01;
  * // 提示：
  * // 2 <= n <= 58
  *
- * TODO do late 爬楼梯模型重写
+ * 爬楼梯模型重写
  *
  * @author liusha
  * @date 2022/2/28
@@ -29,6 +29,22 @@ public class Exercise04 {
     public static void main(String[] args) {
         Exercise04 e = new Exercise04();
         System.out.println(e.cuttingRope(10));// 36
+    }
+
+    // 爬楼梯模型
+    public int cuttingRope2(int n) {
+        if (n == 2) return 1;
+        if (n == 3) return 2;
+        int[] dp = new int[n + 1];
+        // 基础值
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            dp[i] = i;
+            for (int j = 1; j < i; j++) {
+                dp[i] = Math.max(dp[i], dp[j] * dp[i - j]);
+            }
+        }
+        return dp[n];
     }
 
     public int cuttingRope(int n) {
