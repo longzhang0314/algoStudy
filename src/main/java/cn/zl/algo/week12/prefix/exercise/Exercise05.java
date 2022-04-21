@@ -3,8 +3,10 @@ package cn.zl.algo.week12.prefix.exercise;
 /**
  * 53. 最大子数组和
  *
- * TODO do late 分治法（类似线段树）
+ * 已做：DP法
+ * TODO do late 前缀后缀统计、滑动窗口：两种都要再练下
  *
+ * 前缀后缀如何想到：由暴力法优化而来，两步优化，从时间复杂度考虑
  * @author liusha
  * @date 2022/3/29
  */
