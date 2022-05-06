@@ -2,6 +2,9 @@ package cn.zl.algo.week12.bit.exercise;
 
 /**
  * 剑指 Offer 56 - II. 数组中数字出现的次数 II
+ * 在一个数组 nums 中除一个数字只出现一次之外，其他数字都出现了三次。请找出那个只出现一次的数字。
+ *
+ * 优化：可以边加次数边取余；二进制转十进制可以用加法，也可以位运算
  *
  * @author: longzhang
  * @date: 2022/4/5

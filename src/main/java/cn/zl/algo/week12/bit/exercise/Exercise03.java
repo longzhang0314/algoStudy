@@ -2,6 +2,10 @@ package cn.zl.algo.week12.bit.exercise;
 
 /**
  * 面试题 05.06 整数转换
+ *
+ * TODO 也可以先异或，然后判断异或后的结果
+ *
+ * x ^ -x ：前缀数组那节
  * @author liusha
  * @date 2022/3/29
  */
