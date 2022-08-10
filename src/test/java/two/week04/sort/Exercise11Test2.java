@@ -10,7 +10,7 @@ public class Exercise11Test2 {
     public int[] smallestK(int[] arr, int k) {
         if (arr == null || arr.length < k || k <= 0) return new int[0];
         int[] res = new int[k];
-        // 第k小的数索引，并保证过程中左侧所有元素小于第k个
+        // 第k+1小的数索引，并保证过程中左侧所有元素小于第k个
         int patition = quickSort(arr, k, 0, arr.length - 1);
         for (int i = 0; i <= patition; i++) {
             res[i] = arr[i];
@@ -36,8 +36,8 @@ public class Exercise11Test2 {
 
     private int patition(int[] arr, int left, int right) {
         // patition左侧的值全部小于right
-        int patition = 0;
-        for (int i = 0; i < right; i++) {
+        int patition = left;
+        for (int i = left; i < right; i++) {
             if (arr[i] <= arr[right]) {
                 int tmp = arr[i];
                 arr[i] = arr[patition];
@@ -54,8 +54,53 @@ public class Exercise11Test2 {
 
     // =================================  方法分割 =============================================================
 
-    // TODO 继续
+    // 方法2：快排过程中生成结果
+    public int[] smallestK2(int[] arr, int k) {
+        if (arr == null || arr.length < k || k <= 0) return new int[0];
+        int[] res = new int[k];
+        // 排序过程中填充值
+        quickSort(arr, res, k, 0, arr.length - 1, 0);
+        return res;
+    }
 
+    private void quickSort(int[] arr, int[] res, int k, int left, int right, int cnt) {
+        if (left > right || cnt >= res.length) return;
+        if (left == right) {
+            res[cnt++] = arr[left];
+            return;
+        }
 
+        // 分割点位置
+        int patition = patition2(arr, left, right);
+        if (patition - left + 1 == k) {
+            for (int i = left; i <= patition; i++) {
+                res[cnt++] = arr[i];
+            }
+            return;
+        } else if (patition - left + 1 < k) {
+            for (int i = left; i <= patition; i++) {
+                res[cnt++] = arr[i];
+            }
+            quickSort(arr, res, k - (patition - left + 1), patition + 1, right, cnt);
+        } else {
+            quickSort(arr, res, k, left, patition - 1, cnt);
+        }
+    }
+
+    private int patition2(int[] arr, int left, int right) {
+        int patition = left;
+        for (int i = left; i < right; i++) {
+            if (arr[i] <= arr[right]) {
+                int tmp = arr[patition];
+                arr[patition] = arr[i];
+                arr[i] = tmp;
+                patition++;
+            }
+        }
+        int tmp = arr[patition];
+        arr[patition] = arr[right];
+        arr[right] = tmp;
+        return patition;
+    }
 
 }

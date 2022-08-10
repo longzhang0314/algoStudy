@@ -14,7 +14,7 @@ package cn.zl.algo.week04.sort.exercise;
 public class Exercise11 {
 
 
-    // 改进版，快排方法不需要返回值
+    // 改进版，快排方法不需要返回值；写法优化，其实性能未有过多提升
     int[] ans;
     int count = 0;
     public int[] smallestK(int[] arr, int k) {
