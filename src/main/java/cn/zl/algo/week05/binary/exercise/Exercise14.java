@@ -42,6 +42,7 @@ public class Exercise14 {
 
 
     // O(logN + k)
+    // 参考two.week05.binary.Exercise14Test2的写法
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
         // 接近x顺序：
         //（1） 相等：第一个等于x，然后向后遍历等于x的
