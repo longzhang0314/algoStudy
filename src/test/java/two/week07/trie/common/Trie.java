@@ -1,5 +1,9 @@
 package two.week07.trie.common;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author: longzhang
@@ -67,10 +71,33 @@ public class Trie {
             if (p.children == null || p.children[c - 'a'] == null) return;
             p = p.children[c - 'a'];
         }
-        // 此时p停留在前缀的最后一个字符处
-        for (TrieNode child : p.children) {
-            // TODO 0703
+        // 此时p停留在前缀的下一个字符处
+        List<List<Character>> res = new ArrayList<>();
+        List<Character> list = new ArrayList<>();
+        // add prefix to list。。。
+
+        addRes(res, p, new ArrayList<>());
+    }
+
+    // TODO 2023 需要测一下对不对，细节
+    private void addRes(List<List<Character>> res, TrieNode p, List<Character> list) {
+        if (p == null) {
+            if (list.size() != 0) {
+                res.add(new ArrayList<>(list));
+            }
+            return;
         }
+        if (p.isEnd) {
+            if (list.size() != 0) {
+                res.add(new ArrayList<>(list));
+            }
+            return;
+        }
+        list.add(p.data);
+        for (TrieNode child : p.children) {
+            addRes(res, child, list);
+        }
+        list.remove(list.size() - 1);
     }
 
 }
