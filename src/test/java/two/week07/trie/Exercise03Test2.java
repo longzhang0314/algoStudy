@@ -25,14 +25,38 @@ public class Exercise03Test2 {
         // backtrace board, if search add set
         List<Character> cl = new ArrayList<>();
         boolean[][] visited = new boolean[m][n];
-        visited[0][0] = true;
-        process(board, words, visited, res, cl, 0, 0, m, n);
+        process(board, trie, visited, res, cl, 0, 0, m, n);
         return new ArrayList<>(res);
     }
 
-    private void process(char[][] board, String[] words, boolean[][] visited, Set<String> res, List<Character> cl,
+    int[][] ops = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    private void process(char[][] board, Trie trie, boolean[][] visited, Set<String> res, List<Character> cl,
                          int i, int j, int m, int n) {
+        if (!inBoard(board, i, j, m, n) || visited[i][j]) {
+            return;
+        }
+        if (trie.search(cl)) {
+            StringBuilder sb = new StringBuilder();
+            for (Character c : cl) {
+                sb.append(c);
+            }
+            res.add(sb.toString());
+            return;
+        }
 
+        visited[i][j] = true;
+        cl.add(board[i][j]);
+        for (int[] op : ops) {
+            int newI = op[0];
+            int newJ= op[1];
+            process(board, trie, visited, res, cl, newI, newJ, m, n);
+        }
+        cl.remove(cl.size() - 1);
+
+    }
+
+    private boolean inBoard(char[][] board, int i, int j, int m, int n) {
+        return i >= 0 && j >= 0 && i < m && j < n;
     }
 
     private class Trie {
@@ -70,10 +94,10 @@ public class Exercise03Test2 {
             p.isEnd = true;
         }
 
-        public boolean search(String word) {
-            if (word == null || word.length() == 0) return false;
+        public boolean search(List<Character> list) {
+            if (list == null || list.size() == 0) return false;
             TrieNode p = root;
-            for (char c : word.toCharArray()) {
+            for (char c : list) {
                 TrieNode cur = p.child.get(c);
                 if (cur == null) return false;
                 p.child.put(c, new TrieNode(c));
