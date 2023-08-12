@@ -9,6 +9,12 @@ import java.util.List;
  */
 public class Exercise03Test2 {
 
+    public static void main(String[] args) {
+        Exercise03Test2 e= new Exercise03Test2();
+        String digits = "2";
+        System.out.println(e.letterCombinations(digits));
+    }
+
 //    model[0] = "abc";
 //    model[1] = "def";
 //    model[2] = "ghi";
@@ -17,11 +23,11 @@ public class Exercise03Test2 {
 //    model[5] = "pqrs";
 //    model[6] = "tuv";
 //    model[7] = "wxyz";
-    // digits : 13311111111
+    // digits : 3766889
     String[] model;
     public List<String> letterCombinations(String digits) {
         if (digits == null || digits.length() == 0) return new ArrayList<>();
-        model = new String[digits.length()];
+        model = new String[8];
         model[0] = "abc";
         model[1] = "def";
         model[2] = "ghi";
@@ -42,8 +48,8 @@ public class Exercise03Test2 {
             return;
         }
         int idx = digits.charAt(i) - '2';
-
-        for (char c : model[idx].toCharArray()) {
+        char[] charArray = model[idx].toCharArray();
+        for (char c : charArray) {
             chs[i] = c;
             slove(res, digits, chs, i + 1);
         }
