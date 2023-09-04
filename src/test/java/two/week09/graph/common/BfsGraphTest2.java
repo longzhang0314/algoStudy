@@ -1,5 +1,6 @@
 package two.week09.graph.common;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -9,6 +10,7 @@ import java.util.Queue;
  */
 public class BfsGraphTest2 {
 
+    // 容量
     private int v;
     private LinkedList<Integer>[] adj;
 
@@ -20,6 +22,7 @@ public class BfsGraphTest2 {
         }
     }
 
+    // s、t：索引
     public void addEdge(int s, int t) {
         adj[s].add(t);
         adj[t].add(s);
@@ -45,7 +48,35 @@ public class BfsGraphTest2 {
 
 
     public void bfs(int s, int t) {
+        Queue<Integer> queue = new LinkedList<>();
+        boolean[] visited = new boolean[v];
+        int[] prev = new int[v];
+        Arrays.fill(prev, -1);
+        queue.offer(s);
 
+        while (!queue.isEmpty()) {
+            int cur = queue.poll();
+            if (cur == t) {
+                print(prev, s, t);
+                return;
+            }
+            visited[cur] = true;
+            LinkedList<Integer> list = adj[cur];
+            for (int child : list) {
+                if (visited[child]) return;
+                prev[child] = cur;
+                queue.offer(child);
+            }
+        }
+    }
+
+    private void print(int[] prev, int s, int t) {
+        // 非起点元素继续递归
+        if (prev[t] != s && prev[t] != -1) {
+            print(prev, s, prev[t]);
+        }
+        // 打印完再打印当前元素
+        System.out.println(t + " ");
     }
 
 
