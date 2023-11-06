@@ -40,6 +40,42 @@ public class Exercise06 {
         System.out.println(b);
     }
 
+    // 方法2：DFS
+    int[] visited;
+    public boolean canFinish3(int numCourses, int[][] prerequisites) {
+        if (numCourses == 0 || prerequisites == null || prerequisites.length == 0) return true;
+        // prerequisites中pre[0]依赖pre[1]
+        // build graph：
+        LinkedList<Integer>[] adj = new LinkedList[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            adj[i] = new LinkedList<>();
+        }
+        for (int[] pre : prerequisites) {
+            // a -> b代表a依赖b，b先于a执行
+            adj[pre[0]].add(pre[1]);
+        }
+        // 0 未访问；-1 已被访问过；1 被第二次访问，有环
+        visited = new int[numCourses];
+        // dfs
+        for (int i = 0; i < adj.length; i++) {
+            // 有环
+            if (!dfs(adj, i)) return false;
+        }
+        return true;
+    }
+    private boolean dfs(LinkedList<Integer>[] adj, int i) {
+        if (visited[i] == 1) return false;
+        if (visited[i] == -1) return true;
+        visited[i] = 1;
+        for (int j = 0; j < adj[i].size(); j++) {
+            if (!dfs(adj, adj[i].get(j))) return false;
+        }
+        visited[i] = -1;
+        return true;
+    }
+
+
+
     // 拓扑排序
     public boolean canFinish2(int numCourses, int[][] prerequisites) {
         // build graph
