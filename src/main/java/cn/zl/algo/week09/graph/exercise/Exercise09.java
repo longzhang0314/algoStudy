@@ -109,10 +109,8 @@ public class Exercise09 {
     }
 
 
-
-
-
-    // 方法2：DFS（本题不使用，答案是错的，因为DFS不能保证先访问到更短的路径，visited数组会把后访问到的更短路径过滤掉）
+    // 方法2：DFS（本题不使用，答案是错的，因为DFS不能保证先访问到更短的路径，visited数组会把后访问到的更短路径过滤掉）,
+    // DFS实际会变成回溯所有的可能解，然后找到最短路径
 
     // 题意转换，target转到0000
     int min = Integer.MAX_VALUE;
