@@ -15,58 +15,120 @@ import java.util.Queue;
 public class Exercise12 {
 
 
-    int[][] directions = {{-1,0}, {1,0}, {0,-1}, {0,1}, {-1,-1}, {-1,1}, {1,-1}, {1,1}};
-    public char[][] updateBoard(char[][] board, int[] click) {
+    // //输入：board = [["E","E","E","E","E"],
+    //                 ["E","E","M","E","E"],
+    //                 ["E","E","E","E","E"],
+    //                 ["E","E","E","E","E"]],
+    //       click = [3,0]
+    ////输出：         [["B","1","E","1","B"],
+    //                 ["B","1","M","1","B"]
+    //                 ["B","1","1","1","B"],
+    //                 ["B","B","B","B","B"]]
+
+    // M:地雷未探索，E:空白未探索，X：地雷已探索，B：空白且周围都是空白，1-8：空白且周围有1-8个雷
+    // 由click开始，BFS/DFS
+    // 当前位置的赋值逻辑：取决于周围位置雷的个数
+
+    // 题意解析：
+    // 从初始点开始，如果初始点就是M，修改为X，结束
+    // 否则，当前探索点修改为B,1-8
+    // 然后需要分别探讨，如果当前探索点为B，则周围的点都可以放入；如果当前不是B，那么周围的不应该再被探索
+    // 重复探索
+    // 剪枝：四周8个子位置，探索其中一个子位置时，另外的子位置也可能再次被放入队列，需要剪枝
+
+    public static void main(String[] args) {
+        char[][] board = {{'E','E','E','E','E'},{'E','E','M','E','E'},{'E','E','E','E','E'},{'E','E','E','E','E'}};
+        int[] click = {3, 0};
+        Exercise12 e = new Exercise12();
+        char[][] chars = e.updateBoard(board, click);
+        for (char[] cs : chars) {
+            for (char c : cs) {
+                System.out.print(c + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    // 方法1：BFS
+    public char[][] updateBoard1(char[][] board, int[] click) {
+        if (board == null || board.length ==0 || board[0].length == 0) return board;
+        if (click == null || click.length <= 1) return board;
         int m = board.length, n = board[0].length;
+        // 未探索的非雷点
+        if (board[click[0]][click[1]] == 'M') {
+            board[click[0]][click[1]] = 'X';
+            return board;
+        }
+        boolean[][] visited = new boolean[m][n];
+        visited[click[0]][click[1]] = true;
         Queue<int[]> queue = new LinkedList<>();
-//        boolean[][] visited = new boolean[m][n];
         queue.offer(new int[]{click[0], click[1]});
-
-        // 如果一个地雷（'M'）被挖出，游戏就结束了- 把它改为 'X' 。
-// 如果一个 没有相邻地雷 的空方块（'E'）被挖出，修改它为（'B'），并且所有和其相邻的 未挖出 方块都应该被递归地揭露。
-// 如果一个 至少与一个地雷相邻 的空方块（'E'）被挖出，修改它为数字（'1' 到 '8' ），表示相邻地雷的数量。
-// 如果在此次点击中，若无更多方块可被揭露，则返回盘面。
-
         while (!queue.isEmpty()) {
-            int size = queue.size();
-            for (int i = 0; i < size; i++) {
-                int[] arr = queue.poll();
-                // deal
-                int x = arr[0];
-                int y = arr[1];
-                char c = board[x][y];
-                if (c == 'M') {
-                    board[x][y] = 'X';
-                    return board;
-                }
-                int count = calc(board, x, y);
-                if (count == 0) {
-                    board[x][y] = 'B';
-                    // expand
-                    for (int[] direction : directions) {
-                        int newX = x + direction[0];
-                        int newY = y + direction[1];
-                        if (newX >= 0 && newX < m && newY >= 0 && newY < n && board[newX][newY] == 'E') {
-                            queue.offer(new int[]{newX, newY});
-                        }
-                    }
-                } else {
-                    board[x][y] = (char) (count + '0');
+            int[] poll = queue.poll();
+            int i = poll[0];
+            int j = poll[1];
+            // 当前节点赋值数字，且周围为E的放入队列
+            int count = calcM(board, i, j, m, n);
+            board[i][j] = count == 0 ? 'B' : (char) (count + '0');
+            if (count != 0) continue;
+            // 只有周围无雷，周围为E的才可以被下一层探索
+            for (int[] direction : directions) {
+                int newI = i + direction[0];
+                int newJ = j + direction[1];
+                if (!inBoard(newI, newJ, m, n)) continue;
+                if (visited[newI][newJ]) continue;
+                if (board[newI][newJ] == 'E') {
+                    queue.offer(new int[]{newI, newJ});
+                    visited[newI][newJ] = true;
                 }
             }
         }
         return board;
     }
 
-    private int calc(char[][] board, int x, int y) {
-        int count = 0;
+
+    // 方法2：DFS
+    public char[][] updateBoard(char[][] board, int[] click) {
+        if (board == null || board.length == 0 || board[0].length == 0) return board;
+        if (click == null || click.length <= 1) return board;
+        int m = board.length, n = board[0].length;
+        if (board[click[0]][click[1]] == 'M') {
+            board[click[0]][click[1]] = 'X';
+            return board;
+        }
+        dfs(board, click[0], click[1], m, n);
+        return board;
+    }
+
+    private void dfs(char[][] board, int i, int j, int m, int n) {
+        int count = calcM(board, i, j, m, n);
+        board[i][j] = count == 0 ? 'B' : (char) (count + '0');
+        // 周围有雷不能加入下一层探索
+        if (count != 0) return;
         for (int[] direction : directions) {
-            int newX = x + direction[0];
-            int newY = y + direction[1];
-            if (newX >= 0 && newX < board.length && newY >= 0 && newY < board[0].length && board[newX][newY] == 'M') {
-                count++;
+            int newI = i + direction[0];
+            int newJ = j + direction[1];
+            if (!inBoard(newI, newJ, m, n)) continue;
+            if (board[newI][newJ] == 'E') {
+                dfs(board, newI, newJ, m, n);
             }
         }
+    }
+
+
+    // 以下为BFS和DFS通用方法及属性
+    int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
+    private int calcM(char[][] board, int i, int j, int m, int n) {
+        int count = 0;
+        for (int[] direction : directions) {
+            int newI = i + direction[0];
+            int newJ = j + direction[1];
+            if (!inBoard(newI, newJ, m, n)) continue;
+            if (board[newI][newJ] == 'M') count++;
+        }
         return count;
+    }
+    private boolean inBoard(int i, int j, int m, int n) {
+        return i >= 0 && j >= 0 && i < m && j < n;
     }
 }
