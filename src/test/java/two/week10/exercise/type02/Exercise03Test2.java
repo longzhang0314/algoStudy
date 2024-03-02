@@ -1,14 +1,12 @@
-package cn.zl.algo.week10.dp.exercise.type02;
+package two.week10.exercise.type02;
 
 /**
- * 剑指Offer 47 礼物的最大价值
- * LCR 166. 珠宝的最高价值
- * @author liusha
- * @date 2022/2/23
+ * @author: longzhang
+ * @date: 2024/3/2
  */
-public class Exercise04 {
+public class Exercise03Test2 {
 
-    public int maxValue(int[][] grid) {
+    public int minPathSum(int[][] grid) {
         int m = grid.length, n = grid[0].length;
         int[][] dp = new int[m][n];
         dp[0][0] = grid[0][0];
@@ -20,7 +18,7 @@ public class Exercise04 {
         }
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
-                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+                dp[i][j] = grid[i][j] + Math.min(dp[i - 1][j], dp[i][j - 1]);
             }
         }
         return dp[m - 1][n - 1];
