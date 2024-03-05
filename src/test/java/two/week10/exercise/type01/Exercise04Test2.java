@@ -85,7 +85,7 @@ public class Exercise04Test2 {
         Exercise04Test2 e = new Exercise04Test2();
         int amount = 5;
         int[] coins  = {1, 2, 5};
-        int change = e.change2(amount, coins); // 4
+        int change = e.change(amount, coins); // 4
         System.out.println(change);
     }
 
