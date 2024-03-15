@@ -54,16 +54,16 @@ public class Exercise02Test2 {
     }
 
 
-    public int coinChang3(int[] coins, int amount) {
-        if (coins == null || coins.length == 0) return amount == 0 ? 0 : -1;
-        int n = coins.length;
-        int[] dp = new int[amount + 1];
-        dp[0] = 0;
-        // 使用0个coin形成amount
-        for (int i = 1; i <= amount; i++) {
-            // 使用0个不可能组成amount >= 1
-            dp[i] = Integer.MAX_VALUE;
-        }
-
-    }
+//    public int coinChang3(int[] coins, int amount) {
+//        if (coins == null || coins.length == 0) return amount == 0 ? 0 : -1;
+//        int n = coins.length;
+//        int[] dp = new int[amount + 1];
+//        dp[0] = 0;
+//        // 使用0个coin形成amount
+//        for (int i = 1; i <= amount; i++) {
+//            // 使用0个不可能组成amount >= 1
+//            dp[i] = Integer.MAX_VALUE;
+//        }
+//
+//    }
 }
