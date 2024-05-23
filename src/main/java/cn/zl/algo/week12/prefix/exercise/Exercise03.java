@@ -80,5 +80,41 @@ public class Exercise03 {
     }
 
 
+    // 方法4：
+    // 在暴力法基础上，提前统计好左右两侧的连续1的个数
+    // 统计优化：左侧连续1，且包含当前位；右侧同理
+    // 从第0位开始，即为数组最低位
+    public int reverseBits4(int num) {
+        int[] left = new int[32];
+        left[31] = (num & (1 << 31)) == 0 ? 0 : 1;
+        for (int i = 30; i >= 0; i--) {
+            if ((num & (1 << i)) == 0) {
+                continue;
+            }
+            left[i] = left[i + 1] + 1;
+        }
+        int[] right = new int[32];
+        right[0] = (num & 1) == 0 ? 0 : 1;
+        for (int i = 1; i < 32; i++) {
+            if ((num & (1 << i)) == 0) {
+                continue;
+            }
+            right[i] = right[i - 1] + 1;
+        }
+
+        int max = 0;
+        for (int i = 0; i < 32; i++) {
+            if ((num & (1 << i)) != 0) {
+                continue;
+            }
+            int cur = 1
+                    + (i < 31 ? left[i + 1] : 0)
+                    + (i > 0 ? right[i - 1] : 0);
+            max = Math.max(max, cur);
+        }
+        return max == 0 ? 32 : max;
+    }
+
+
 
 }
